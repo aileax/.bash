@@ -7,6 +7,7 @@
     - bash.sh : script permettant l'installation et mise à jour de mes bash_dotfiles
 - Contient une Biblio-Perso ($BASH_DIR/bin/) de fonction shell:
     - `coucou` : fct créer pour tester les fcts....dit coucou ss paramètre et perroquet sinon
+    - `nbr_agent-ssh` : Retourne le nombre d'agent ssh actif (methode parcourant procfs)
 
 ## Fonctionnement et Chargement des BDF (Bash-Dot-Files)
 Les fichiers lus dépendent du type de shell:

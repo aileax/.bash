@@ -1,0 +1,44 @@
+#!/bin/bash
+
+# Retourne le nombre d'agent ssh actif (methode parcourant procfs)
+
+# ERROR-21: aide affiché car demandée
+# ERROR-22: aide affiché car mauvaise utilisation (argument non acceptè car pas un option posssible)
+
+# =[ VARIABLES ]====================================================================================
+nom=$(echo $0 | rev | cut -d "/" -f1 | rev)         # Récupère le nom de la commande
+dossier=$(echo $0 | rev | cut -d "/" -f2- | rev)    # Récupère l'emplacement de la commande
+
+# =[ FONCTIONS ]====================================================================================
+# Affiche l'aide et l'usage de la commande check_ssh
+function usage(){
+    echo "La fonction ${nom} se trouve dans ${dossier}"
+    echo "Par défaut, c'est une fonctionnelle (return True or False) indiquant si un agent SSH est en cours d'éxécution"
+    echo -e "\nUsage: $nom -[vh] "
+    echo -e "\n L'option -h(--help) permet d'afficher l'usage"
+    echo -e "\n L'option -v(--verbose)rend la fonction tchatty!"
+}
+
+# Parcoure procfs à la rechercher des agents-ssh puis s'il les trouvent add leurs pid à agent_list
+# Retourne leurs nombres! 0 si aucun => on peut l'utilisé comme test => WRAP:fonctionnelle
+function check_agent_procfs(){
+    declare -a agent_list=( )                           # Liste des pid des agents SSH en cours
+    for folders in $(ls -d /proc/*[[:digit:]] | grep -v /proc/1$);do
+        fichier="${folders}/stat"
+        pid=${folders/\/proc\//}
+        [[ -f ${fichier} ]] && [[ $(cat ${fichier} | cut -d " " -f2) == "(ssh-agent)" ]] && agent_list+=(${pid})
+    done
+    echo "Il y à actuellement ${#agent_list[@]} agent-ssh en cours d'éxécution : ${agent_list[@]}"
+    return ${#agent_list[@]}
+}
+
+# =[ MAIN() ]=======================================================================================
+## i) Trop d'argument : affiche l'usage
+#[[ $# -gt 1 ]] && usage && exit 21
+## ii) 1 argument : différents cas rencontrés:
+case "$1" in
+    "-h"|"--help") usage && exit 21 ;;
+    "-v"|"--verbose") check_agent_procfs ;;
+    "") check_agent_procfs &> /dev/null ;;
+    *) usage && exit 22 ;;
+esac
