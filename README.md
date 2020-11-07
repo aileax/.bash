@@ -8,6 +8,7 @@
 - Contient une Biblio-Perso ($BASH_DIR/bin/) de fonction shell:
     - `coucou` : fct créer pour tester les fcts....dit coucou ss paramètre et perroquet sinon
     - `nbr_agent-ssh` : Retourne le nombre d'agent ssh actif (methode parcourant procfs)
+    - `check_git` : vérifie qu'un dossier est bien dans l'arborescence d'un dépôt git local
 
 ## Fonctionnement et Chargement des BDF (Bash-Dot-Files)
 Les fichiers lus dépendent du type de shell:

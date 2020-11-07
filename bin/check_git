@@ -1,0 +1,62 @@
+#!/bin/bash
+
+# check_git : vérifie qu'un dossier est bien dans l'arborescence d'un dépôt git local
+
+# -[ ERROR_TABLE: ]---------------------------------------------------------------------------------
+    # 0 arg:
+        # 8 : dossier courant n'est pas un dépot git
+    # 1 ou 2 args:
+        # 11 : 1er paramètre = -h:--help => affiche usage
+        # 14 : 1er paramètre n'est pas un dossier
+        # 24 : 2éme paramètre n'est pas un dossier
+        # 28 : 2éme para n'est pas un dépot git
+    # 3 arg:
+        # 31 : trop d'argument passès => affiche usage
+
+# =[ VARIABLES ]====================================================================================
+nom=$(echo $0 | rev | cut -d "/" -f1 | rev)
+dossier=$(echo $0 | rev | cut -d "/" -f2- | rev)
+
+# =[ FUNCTIONS ]====================================================================================
+function usage(){
+    echo "La fonction ${nom} se trouve dans ${dossier}"
+    echo "Par défaut, c'est une fonctionnelle (return True or False) indiquant si le dossier courant est un dépôt local git"
+    echo -e "\nUsage: $nom -[vh] [FOLDER] "
+    echo  "Sans paramètre, elle analyse le dossier courant . , sinon si le paramètre correspond à un dossier existant, analyse le dossier passè en argument"
+    echo  "L'option -h(--help) permet d'afficher l'usage"
+    echo  "L'option -v(--verbose)rend la fonction tchatty!"
+}
+
+function check_git(){
+    if [ -n "$1" ];then
+        [[ -d $1 ]] || echo "$1 n'est pas un dossier" && exit 24
+        if [ $(cd $1 && git rev-parse --is-inside-work-tree 2> /dev/null ) ];then
+            echo "$1 est bien un dépot git"
+            exit 0
+        else
+            echo "$1 n'est pas un dépot git"
+            exit 28
+        fi
+    else
+        if [ $(git rev-parse --is-inside-work-tree 2> /dev/null ) ];then
+            echo "on est bien dans un dépot git"
+            exit 0
+        else
+            echo "On n'est pas un dépot git"
+            exit 8
+        fi
+    fi
+}
+
+
+# =[ MAIN() ]=======================================================================================
+# i) Pas d'argument => analyse de dossier courant
+[[ $# -eq 0 ]] &&  check_git &> /dev/null
+# ii) Plus de deux arguments => retourne l'usage
+[[ $# -gt 2 ]] && usage && exit 31
+#ii) cas (de  1 ou 2 arguments) restants
+case "$1" in
+    "-h"|"--help") usage && exit 11 ;;
+    "-v"|"--verbose") check_git $2  ;;
+    *) [[ -d $1 ]] && check_git $1 &> /dev/null || exit 14 ;;
+esac
