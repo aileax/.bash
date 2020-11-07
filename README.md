@@ -3,15 +3,19 @@
     - bash_profile : chargé à chaque session interactive loguée (bash source bash_login).
     - bashrc : chargé à chaque session interactive non-loguée.
     - bash_logout : chargé à chaque fermeture de session bash loguée.
+- Contient un script d'installation des bash_dotfiles:
+    - bash.sh : script permettant l'installation et mise à jour de mes bash_dotfiles
+- Contient une Biblio-Perso ($BASH_DIR/bin/) de fonction shell:
+    - `coucou` : fct créer pour tester les fcts....dit coucou ss paramètre et perroquet sinon
 
 ## Fonctionnement et Chargement des BDF (Bash-Dot-Files)
 Les fichiers lus dépendent du type de shell:
-    - *Non-interactive* : shell non associé à un terminal (cas lors d'éxécution de script)
-    - *Interactive* : shell qui lis et écris dans un terminal d'utilisateur (Interpréteur de commande)
-        * Loging : cas de Co. locale ou SSH ou `$ bash --login`
-        ORDRE : /etc/profile >> ~/.bash_profile >> ~/.bash_login >> ~/.profile ( -f .bash_profil => .profil pas sourcé)
-        * Non_loging: `$ bash`
-        ORDRE : ~/.bashrc >> ~/.bash_login >> ~/.profile
+- *Non-interactive* : shell non associé à un terminal (cas lors d'éxécution de script)
+- *Interactive* : shell qui lis et écris dans un terminal d'utilisateur (Interpréteur de commande)
+    - Loging : cas de Co. locale ou SSH ou `$ bash --login`
+    ORDRE : /etc/profile >> ~/.bash_profile >> ~/.bash_login >> ~/.profile ( -f .bash_profil => .profil pas sourcé)
+    - Non_loging: `$ bash`
+    ORDRE : ~/.bashrc >> ~/.bash_login >> ~/.profile
 
 ## `~/.bash_profile` (Interactive loging shell) 
 Dans `.profile on source bash_profile ssi le fichier existe`, ainsi il est

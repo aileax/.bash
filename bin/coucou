@@ -1,0 +1,36 @@
+#!/bin/bash
+
+# =[ VARIABLES ]====================================================================================
+nom=$(echo $0 | rev | cut -d "/" -f-1 | rev)
+
+# =[ FONCTIONS ]====================================================================================
+usage(){
+    echo -e "${nom} localisée dans $0"
+    echo "Elle retourne juste une phrase:"
+    echo "   Sans paramètre elle retourne juste coucou"
+    echo "   Avec paramètre elle retourne le paramètre"
+    echo -e "\nUsage : ${nom} [-qh] [string]\n"
+}
+
+coucou(){
+    echo "coucou"
+}
+
+# -[ MAIN() ]---------------------------------------------------------------------------------------
+
+case "$1" in
+    "-q"|"--quit")
+        coucou &> /dev/null
+        echo "ssshhut!"
+        ;;
+    "-h"|"--help")
+        usage
+        exit 101
+        ;;
+    "")
+        coucou
+        ;;
+    *)
+        echo "$1"
+        ;;
+esac
