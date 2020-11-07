@@ -1,0 +1,84 @@
+# ========================================================================================
+# BASH_ALIASES
+# ========================================================================================
+ 
+# Contient les aliases utiles, nécéssite de mettre dans ~/.bashrc `. ~/.$BASH_DIR/aliases`
+
+# =[ CONFIGURATION CONDITIONNELLE/SPÉCIFIQUE ]===========================================
+# Certains alias ne doivent être actifs que sur certains devices (raccourcis notamment)
+# Pour ce faire deux possibilitées:
+# [X] 1) - Créé plusieurs bash_aliases, puis via bash.sh (install&màj) charger le bon 
+# [O] 2) - Créé un bash-aliases universel, contenant des aliases conditionnels(if statement)
+
+# =[ COMMANDES UTILES ]===================================================================
+# [ ] Lister l'ensemble des aliases actifs, faire `$ alias`
+# [ ] Déclarer un alias faire `alias='<cmd>'`
+# [ ] Défaire un alias faire `unalias <nom>` ou pour défaire tous `unalias -a`
+
+# =[ COLORATION DE COMMANDE ]=============================================================
+if [ -x /usr/bin/dircolors ]; then
+    test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
+    alias ls='ls --color=auto'
+    alias dir='dir --color=auto'
+    alias vdir='vdir --color=auto'
+    alias grep='grep --color=auto'
+    alias fgrep='fgrep --color=auto'
+    alias egrep='egrep --color=auto'
+fi
+
+# -[ NOTIFY ]---------------------------------------------------------------------------------------
+# Permet d'afficher une fenêtre d'alerte, mais ne fonctionne que sous linux (pas WSL2)
+# Utile par exemple pour notifier à la fin d'une longue commande qu'elle est terminée!
+#   sudo apt update && apt upgrade ; sleep 10; alert
+alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
+
+# -[ LISTER ]---------------------------------------------------------------------------------------
+alias ll='ls -alF'
+alias la='ls -A'
+alias l='ls -CF'
+
+# =[ SSH ]==========================================================================================
+alias ppti="ssh 2767308@ssh.ufr-info-p6.jussieu.fr"
+alias agent="nbr_agent-ssh && eval \$(ssh-agent -s) && ssh-add ~/.ssh/gitpro}"
+
+# ==================================================================================================
+# ALIAS-CONDITIONNELS
+# ==================================================================================================
+# =[ VARIABLES ]====================================================================================
+# Variables permettant d'identifier la machine sur lequelle on se trouve :)
+Surfath="/mnt/c/Users/Laurent/OneDrive - etu.sorbonne-universite.fr"
+Deskpath="/mnt/d/OneDrive - etu.sorbonne-universite.fr"
+PPTI_HOME="/users/Etu8/2767308"
+
+# =[ FONCTIONS ]====================================================================================
+# Ensemble de fonctions permettant de configurer les raccoucis menant aux dossiers de cours
+# -[ ONEDRIVEALIAS ]--------------------------------------------------------------------------------
+# Fct permettant de créer les alias spécifiques aux ordis persos
+OneDriveAlias() {
+    alias doc="cd '$OneDrive'/Documents/ && ls -a"
+    alias fac="cd '$OneDrive'/Documents/Fac/ && ls -a"
+    alias wiki="cd '$OneDrive'/Documents/Wiki/ && ls -a"
+    alias 002="cd '$OneDrive'/Documents/Fac/S3/002/ && ls -a"
+    alias 005="cd '$OneDrive'/Documents/Fac/S3/005/ && ls -a"
+    alias 011="cd '$OneDrive'/Documents/Fac/S3/011/ && ls -a"
+    alias 018="cd '$OneDrive'/Documents/Fac/S3/018/ && ls -a"
+    alias 019="cd '$OneDrive'/Documents/Fac/S3/019/ && ls -a"
+    alias 020="cd '$OneDrive'/Documents/Fac/S3/020/ && ls -a"
+}
+# -[ PPTIALIAS ]------------------------------------------------------------------------------------
+# Fct permettant de créer les alias spécidique aux ordis de la ppti
+PPTIAlias() {
+    alias wiki="cd '$OneDrive'/Wiki/ && ls -a"
+    alias 002="cd '$PPTI_HOME'/S3/002/ && ls -a"
+    alias 005="cd '$PPTI_HOME'/S3/005/ && ls -a"
+    alias 011="cd '$PPTI_HOME'/S3/011/ && ls -a"
+    alias 018="cd '$PPTI_HOME'/S3/018/ && ls -a"
+    alias 019="cd '$PPTI_HOME'/S3/019/ && ls -a"
+    alias 020="cd '$PPTI_HOME'/S3/020/ && ls -a"
+}
+
+# =[ MAIN () ]======================================================================================
+# Ssi on a un path existant connu menant au OneDrive alors
+[[ -d $Deskpath ]] && OneDrive=$Deskpath && OneDriveAlias  # Si on est sur le PC
+[[ -d $Surfath ]] && OneDrive=$Surfath && OneDriveAlias    # Si on est sur la surface
+[[ -d $PPTI_HOME ]] && PPTIAlias                           # Si on est sur un PC de la PPTI
