@@ -11,11 +11,15 @@
 # [O] 2) - Créé un bash-aliases universel, contenant des aliases conditionnels(if statement)
 
 # =[ COMMANDES UTILES ]===================================================================
+# Features à implémenter si possibles...
 # [ ] Lister l'ensemble des aliases actifs, faire `$ alias`
 # [ ] Déclarer un alias faire `alias='<cmd>'`
 # [ ] Défaire un alias faire `unalias <nom>` ou pour défaire tous `unalias -a`
 
-# =[ COLORATION DE COMMANDE ]=============================================================
+# ==================================================================================================
+# ALIAS-POUR-TOUS & TOUS COMMUN!
+# ==================================================================================================
+# -[ COLORATION DE COMMANDE ]-----------------------------------------------------------------------
 if [ -x /usr/bin/dircolors ]; then
     test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
     alias ls='ls --color=auto'
@@ -37,10 +41,6 @@ alias ll='ls -alF'
 alias la='ls -A'
 alias l='ls -CF'
 
-# =[ SSH ]==========================================================================================
-alias ppti="ssh 2767308@ssh.ufr-info-p6.jussieu.fr"
-alias agent="nbr_agent-ssh && eval \$(ssh-agent -s) && ssh-add ~/.ssh/gitpro"
-
 # ==================================================================================================
 # ALIAS-CONDITIONNELS
 # ==================================================================================================
@@ -51,6 +51,14 @@ Deskpath="/mnt/d/OneDrive - etu.sorbonne-universite.fr"
 PPTI_HOME="/users/Etu8/2767308"
 
 # =[ FONCTIONS ]====================================================================================
+
+# -[ SSH ]------------------------------------------------------------------------------------------
+# Alias en liens avec connection SSH (inutile en PPTI)
+SSH-Alias() {
+    alias ppti="ssh 2767308@ssh.ufr-info-p6.jussieu.fr"
+    alias agent="nbr_agent-ssh && eval \$(ssh-agent -s) && ssh-add ~/.ssh/gitpro"
+}
+
 # Ensemble de fonctions permettant de configurer les raccoucis menant aux dossiers de cours
 # -[ ONEDRIVEALIAS ]--------------------------------------------------------------------------------
 # Fct permettant de créer les alias spécifiques aux ordis persos
@@ -79,6 +87,6 @@ PPTIAlias() {
 
 # =[ MAIN () ]======================================================================================
 # Ssi on a un path existant connu menant au OneDrive alors
-[[ -d $Deskpath ]] && OneDrive=$Deskpath && OneDriveAlias  # Si on est sur le PC
-[[ -d $Surfath ]] && OneDrive=$Surfath && OneDriveAlias    # Si on est sur la surface
-[[ -d $PPTI_HOME ]] && PPTIAlias                           # Si on est sur un PC de la PPTI
+[[ -d $Deskpath ]] && OneDrive=$Deskpath && OneDriveAlias && SSH-Alias # Si on est sur le PC
+[[ -d $Surfath ]] && OneDrive=$Surfath && OneDriveAlias && SSH-Alias   # Si on est sur la surface
+[[ -d $PPTI_HOME ]] && PPTIAlias                                       # Si on est sur un PC de la PPTI

@@ -74,7 +74,7 @@ Y placer les commandes que l'on souhaite exécuter lors de la déconnexion de la
 
 ### Ex1 : tuer le ssh-agent!
 ```bash
-check_ssh && eval $(ssh_agnt -k)
+[[ check_ssh ]] && eval $(ssh-agent -k)
 ```
 
 ## `${BASH_DIR}/bin`:Fonctions/Commandes SHELL
