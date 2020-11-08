@@ -44,8 +44,8 @@ shopt -s globstar           # permet l'utilisation de ~/proc/**/stat dans le mat
 # =[ HISTORIQUE ]===================================================================================
 shopt -s histappend         # Ajoute au fichier historique, ne l'efface pas (same as >> )
 HISTCONTROL=ignoreboth      # Pas de doublons ou de ligne vide dans l'historique
-HISTSIZE=1000               # Taille de l'historique de commande gardé en mémoire
-HISTFILESIZE=2000           # Taille du fichier d'historique de commande
+HISTSIZE=2500               # Taille de l'historique de commande gardé en mémoire
+HISTFILESIZE=6000           # Taille du fichier d'historique de commande
 
 # =[ COMPLETION ]===================================================================================
 # enable programmable completion features (you don't need to enable this, if it's already enabled in

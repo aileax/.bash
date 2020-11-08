@@ -5,9 +5,9 @@
 # ==================================================================================================
 
 # Prépare avant le lancement du script d'installation bash.sh
-# [ ] 1) Supprime les liens symboliques si précédemment créés par un bash.sh
-# [ ] 2) Récupère dans le dossiers backup les anciens fichiers et les copies dans le HOME
-# [ ] 3) Supprime les anciens dossiers créer ayant pour noms celui du dossier backup du jour
+# [X] 1) Supprime les liens symboliques si précédemment créés par un bash.sh
+# [X] 2) Récupère dans le dossiers backup les anciens fichiers et les copies dans le HOME
+# [X] 3) Supprime les anciens dossiers créer ayant pour noms celui du dossier backup du jour
 
 # =[ VARIABLES  ]===================================================================================
 BackFold="$HOME/.backupfiles"           # Dossier contenant les Backup Folders

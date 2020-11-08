@@ -7,13 +7,13 @@ nom=$(echo $0 | rev | cut -d "/" -f-1 | rev)
 usage(){
     echo -e "${nom} localisée dans $0"
     echo "Elle retourne juste une phrase:"
-    echo "   Sans paramètre elle retourne juste coucou"
-    echo "   Avec paramètre elle retourne le paramètre"
+    echo "- Sans paramètre elle dit bonjour à l'utilisateur!"
+    echo "- Avec paramètre elle répète le paramètre comme un perroquet :) !"
     echo -e "\nUsage : ${nom} [-qh] [string]\n"
 }
 
 coucou(){
-    echo "coucou"
+    echo "Bonjour ${USER}!"
 }
 
 # -[ MAIN() ]---------------------------------------------------------------------------------------

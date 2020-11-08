@@ -9,6 +9,7 @@
 
 # =[ VAR-ENV ]======================================================================================
 BASH_DIR="${HOME}/bash" # Chemin par défaut du dossier contenant les BDF.
+export HISTFILE="/home/$USER/.backupfiles/bash_history"
 
 # =[ SOURCE ]=======================================================================================
 # Sources les fichiers bashrc et bash_aliases en les :

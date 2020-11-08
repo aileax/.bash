@@ -39,7 +39,7 @@ alias l='ls -CF'
 
 # =[ SSH ]==========================================================================================
 alias ppti="ssh 2767308@ssh.ufr-info-p6.jussieu.fr"
-alias agent="nbr_agent-ssh && eval \$(ssh-agent -s) && ssh-add ~/.ssh/gitpro}"
+alias agent="nbr_agent-ssh && eval \$(ssh-agent -s) && ssh-add ~/.ssh/gitpro"
 
 # ==================================================================================================
 # ALIAS-CONDITIONNELS
