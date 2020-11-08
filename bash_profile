@@ -8,12 +8,14 @@
 #umask 022
 
 # =[ VAR-ENV ]======================================================================================
-BASH_DIR="~/.dotfiles/bash"           # VarENV: dossier contenant les Bash_DotFiles
+BASH_DIR="${HOME}/bash" # Chemin par défaut du dossier contenant les BDF.
 
 # =[ SOURCE ]=======================================================================================
-# Sources les fichiers bashrc et bash_aliases s'ils existent
-[[ -d $HOME/.dotfiles ]] && . $BASH_DIR/bashrc
-[[ -d $HOME/.dotfiles ]] && . $BASH_DIR/aliases
+# Sources les fichiers bashrc et bash_aliases en les :
+# Localisant dans le home par défaut si la varENV BASH_DIR est vide
+# à la localisation de $BASH_DIR si cette dernière est définie et correspond à un dossier
+[[ -d ${BASH_DIR} ]] && . ${BASH_DIR}/bashrc 
+[[ -d ${BASH_DIR} ]] && . ${BASH_DIR}/aliases 
 
 # =[ PATH ]=========================================================================================
 # Ajoute au PATH différents repo possible de bin perso s'ils existent
