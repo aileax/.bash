@@ -11,7 +11,6 @@
 # =[ VARIABLES  ]===================================================================================
 Current_User_SHELL=$(echo "$SHELL")
 List_SHELLS=$(cat /etc/shells)
-Bash_DotFiles=("bash_profile" "bash_logout" ) #Liste des BDF pour lesquels créer des liens ds $HOME
 Prefix=$(date +%F)
 # Déclaration conditionnelle de la variable du dossier dans lequel chercher les BDF
 File_Full_Path=$(readlink -f $0)              #Récupère le chemin abs du script ds tous les cas!
@@ -49,10 +48,9 @@ archivage() {
 # -[ SYMBOLINK ]------------------------------------------------------------------------------------
 # Crée l'ensemble des liens symboliques pointant vers les bash_dotfiles (depend of git branch)
 symbolinks() {
-    for files in "${Bash_DotFiles[@]}"; do
-        ln -s "${Folder//./}/${files}" ~/."${files}"
-    done
+    ln -s "${Folder//./}/bash_profile" ~/."bash_profile"
+    ln -s "${Folder//./}/bash_logout" ~/."bash_logout"
 }
 
 # =[ MAIN () ]======================================================================================
-check_bash_install && archivage && symbolinks
+check_bash_install && archivage && symbolinks && exec $SHELL --login

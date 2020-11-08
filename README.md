@@ -1,7 +1,7 @@
 # Installation
 Cloner le repo puis installer:
 ```bash
-$ git clone git@github.com:alterGNU/bash.git && sh bash/test.sh
+$ git clone https://github.com/alterGNU/bash.git && ./bash/install.sh
 ```
 # BASH repo
 - Contient des scripts :
