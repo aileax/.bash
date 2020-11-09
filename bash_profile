@@ -8,8 +8,8 @@
 #umask 022
 
 # =[ VAR-ENV ]======================================================================================
-BASH_DIR="${HOME}/bash" # Chemin par défaut du dossier contenant les BDF.
-export HISTFILE="/home/$USER/.backupfiles/bash_history"
+export BASH_DIR="${HOME}/.bash"       # Chemin par défaut du dossier contenant les BDF.
+export HISTFILE="${BASH_DIR}/history" # Déplace le fichier d'historique de bash dans le BASH_DIR
 
 # =[ SOURCE ]=======================================================================================
 # Sources les fichiers bashrc et bash_aliases en les :
