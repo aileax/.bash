@@ -1,0 +1,7 @@
+#Ignorer SWAP-FILES (fichiers de sauvegarde)
+*~
+*.swo
+*.swp
+
+# Historique bash
+history
