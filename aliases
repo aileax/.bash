@@ -1,16 +1,16 @@
-# ========================================================================================
+# ==================================================================================================
 # BASH_ALIASES
-# ========================================================================================
+# ==================================================================================================
  
 # Contient les aliases utiles, nécéssite de mettre dans ~/.bashrc `. ~/.$BASH_DIR/aliases`
 
-# =[ CONFIGURATION CONDITIONNELLE/SPÉCIFIQUE ]===========================================
+# =[ CONFIGURATION CONDITIONNELLE/SPÉCIFIQUE ]=====================================================
 # Certains alias ne doivent être actifs que sur certains devices (raccourcis notamment)
 # Pour ce faire deux possibilitées:
 # [X] 1) - Créé plusieurs bash_aliases, puis via bash.sh (install&màj) charger le bon 
 # [O] 2) - Créé un bash-aliases universel, contenant des aliases conditionnels(if statement)
 
-# =[ COMMANDES UTILES ]===================================================================
+# =[ COMMANDES UTILES ]=============================================================================
 # Features à implémenter si possibles...
 # [ ] Lister l'ensemble des aliases actifs, faire `$ alias`
 # [ ] Déclarer un alias faire `alias='<cmd>'`
@@ -51,6 +51,9 @@ Deskpath="/mnt/d/OneDrive - etu.sorbonne-universite.fr"
 PPTI_HOME="/users/Etu8/2767308"
 
 # =[ FONCTIONS ]====================================================================================
+# Ensemble de fct qui, quand appelées, permettent de charger les aliases qu'elles contiennent.
+# Ainsi, en les appelants conditionnellement, cela permet d'avoir un aliasing spécifique au device.
+# Voir section main() pour les appels conditionnels
 
 # -[ SSH ]------------------------------------------------------------------------------------------
 # Alias en liens avec connection SSH (inutile en PPTI)
@@ -59,7 +62,6 @@ SSH-Alias() {
     alias agent="nbr_agent-ssh && eval \$(ssh-agent -s) && ssh-add ~/.ssh/gitpro"
 }
 
-# Ensemble de fonctions permettant de configurer les raccoucis menant aux dossiers de cours
 # -[ ONEDRIVEALIAS ]--------------------------------------------------------------------------------
 # Fct permettant de créer les alias spécifiques aux ordis persos
 OneDriveAlias() {
@@ -73,6 +75,7 @@ OneDriveAlias() {
     alias 019="cd '$OneDrive'/Documents/Fac/S3/019/ && ls -a"
     alias 020="cd '$OneDrive'/Documents/Fac/S3/020/ && ls -a"
 }
+
 # -[ PPTIALIAS ]------------------------------------------------------------------------------------
 # Fct permettant de créer les alias spécidique aux ordis de la ppti
 PPTIAlias() {
@@ -86,7 +89,7 @@ PPTIAlias() {
 }
 
 # =[ MAIN () ]======================================================================================
-# Ssi on a un path existant connu menant au OneDrive alors
-[[ -d $Deskpath ]] && OneDrive=$Deskpath && OneDriveAlias && SSH-Alias # Si on est sur le PC
-[[ -d $Surfath ]] && OneDrive=$Surfath && OneDriveAlias && SSH-Alias   # Si on est sur la surface
+# Test des différents chemins possibles,propres aux diff. devices,pour déterminer quels alias charger
+[[ -d $Deskpath ]] && OneDrive=$Deskpath && OneDriveAlias && SSH-Alias # Si on est sur le PC-WSL2
+[[ -d $Surfath ]] && OneDrive=$Surfath && OneDriveAlias && SSH-Alias   # Si on est sur la Surface-WSL2
 [[ -d $PPTI_HOME ]] && PPTIAlias                                       # Si on est sur un PC de la PPTI
