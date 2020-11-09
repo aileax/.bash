@@ -48,9 +48,24 @@ archivage() {
 # -[ SYMBOLINK ]------------------------------------------------------------------------------------
 # Crée l'ensemble des liens symboliques pointant vers les bash_dotfiles (depend of git branch)
 symbolinks() {
-    ln -s "${Folder//./}/bash_profile" ~/."bash_profile"
-    ln -s "${Folder//./}/bash_logout" ~/."bash_logout"
+    ln -sv "${Folder}/bash_profile" ~/."bash_profile"
+    ln -sv "${Folder}/bash_logout" ~/."bash_logout"
+}
+
+# -[ END_INSTALL ]----------------------------------------------------------------------------------
+# Fonction affichant le message de fin d'installation
+end_install() {
+    echo -e "L'installation est maintenant terminée.\nPour que les modifications soient actives vous
+    devez fermer puis réouvrir votre terminal"
+
+    while [[ ( $REP != "OUI" ) && ( $REP != "NON" ) ]]; do # car [ T AND F]<=>[ F AND T]<=> T
+        echo -e "Souhaitez vous fermer le terminal actuel? Répondez par:\n Oui\n Non"
+        read rep
+        REP=${rep^^} # Comme pour le paramètre OPT, permet de ne pas prendre en compte la casse!
+    done
+
+    [[ $REP == "NON" ]] && exit 11
 }
 
 # =[ MAIN () ]======================================================================================
-check_bash_install && archivage && symbolinks && exec $SHELL --login
+check_bash_install && archivage && symbolinks && end_install && echo "REDEMARRER"
