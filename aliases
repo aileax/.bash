@@ -45,7 +45,7 @@ alias l='ls -CF'
 # ALIAS-CONDITIONNELS
 # ==================================================================================================
 # Alias liés à la desinstallation du projet git .bash
-[[ -f ${BASH_DIR}/restore_bash.sh ]] && alias restore_bash="${BASH_DIR}/restore_bash.sh && source $HOME/.{profile,bashrc}"
+[[ -f ${BASH_DIR}/restore_bash.sh ]] && alias restore_bash="${BASH_DIR}/restore_bash.sh && source $HOME/.{profile,bashrc} && unset $BASH_DIR"
 
 # =[ VARIABLES ]====================================================================================
 # Variables permettant d'identifier la machine sur lequelle on se trouve :)
