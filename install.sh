@@ -24,14 +24,25 @@ check_bash_install() {
         echo -e "Bash n'est pas le shell par défaut!"
         echo -e "L'installation ne se lance que s'il est le shell par defaut!"
         echo -e "Pour cela faire chsh -s /bin/bash"
-        exit 66
+        return 22
     else
-        echo "L'installation de la configuration personnalisée du shell bash commence..."
+        echo -e "L'installation de la configuration personnalisée du shell bash commence...\n"
     fi
     return 0
 }
 
-# -[ COPYCAT ]--------------------------------------------------------------------------------------
+# -[ EXP_BASH_DIR ]---------------------------------------------------------------------------------
+# S'assure de la valeur de $BASH_DIR, si correspond à valeur par défaut ne fair rien sinon corrige
+exp_bash_dir () {
+    bash_dir_profile=$(grep -E "^export BASH_DIR" ${Folder}/bash_profile | cut -d "\"" -f2)
+    bash_dir_old=${bash_dir_profile}
+    bash_dir_new=${Folder//$HOME/\$\{HOME\}}
+    echo "bash_dir_old $bash_dir_old"
+    echo "bash_dir_new $bash_dir_new"
+    [[ "${bash_dir_old}" == "${bash_dir_new}" ]] && echo "BASH_DIR par défaut!" || (echo "Changement de la valeur de BASH_DIR";sed -i "s,${bash_dir_old//\$/\\\$},${bash_dir_new//\$/\\\$},g" "$Folder/bash_profile")
+}
+
+# -[ ARCHIVAGE ]------------------------------------------------------------------------------------
 # Crée un dossier de sauvegarde contenant les anciens bash_dotfiles (mv commande)
 archivage() {
     # Crée le dossier de sauvegarde : ~/.backupfiles/bash_YYYY-MM-DD
@@ -55,17 +66,11 @@ symbolinks() {
 # -[ END_INSTALL ]----------------------------------------------------------------------------------
 # Fonction affichant le message de fin d'installation
 end_install() {
-    echo -e "L'installation est maintenant terminée.\nPour que les modifications soient actives vous
-    devez fermer puis réouvrir votre terminal"
-
-    while [[ ( $REP != "OUI" ) && ( $REP != "NON" ) ]]; do # car [ T AND F]<=>[ F AND T]<=> T
-        echo -e "Souhaitez vous fermer le terminal actuel? Répondez par:\n Oui\n Non"
-        read rep
-        REP=${rep^^} # Comme pour le paramètre OPT, permet de ne pas prendre en compte la casse!
-    done
-
-    [[ $REP == "NON" ]] && exit 11
+    echo "L'installation est maintenant terminée."
+    return 0
 }
 
 # =[ MAIN () ]======================================================================================
-check_bash_install && archivage && symbolinks && end_install && echo "REDEMARRER"
+# quitte le script si bash n'est pas le shell utilisé
+[[ check_bash_install ]] || exit 42
+exp_bash_dir && archivage && symbolinks && end_install && bash --login

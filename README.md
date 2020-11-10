@@ -3,26 +3,20 @@ Cette configuration personnelle de bash déclare et utilise une variable d'ENVIR
 à la localisation du dossier `bash/`
 
 ## Installation standart - $BASH\_DIR:`$HOME/.bash/*`
-Cloner le repo dans le home en tant que dotfile puis installer configuration :
+Cloner le repo dans le $HOME en tant que dotfile puis installer configuration :
+
+_Se placer à l'emplacement où l'on souhaite installer le dossier bash (généralement dans le $HOME) pui exécuter install_
 ```bash
-$ git clone https://github.com/alterGNU/bash.git $HOME/.bash && $HOME/.bash/install.sh
+$ git clone https://github.com/alterGNU/bash.git && ./bash/install.sh
 ```
-## Installation en changeant localisation et nom par défaut:
-- 1 : Cloner le repo. renommé à l'endroit souhaité:`$ git clone https://github.com/alterGNU/bash.git <emplacement>/<nom_dossier>`
-    Example avec **localisation=~/.dotfiles** et **nom_dossier=bash_config**
-    ```bash
-    $ git clone https://github.com/alterGNU/bash.git ~/.dotfiles/bash_config
-    ```
-- 2 : Modifier la variable d'environnement $BASH\_DIR dans le fichier `bash_profile`, ainsi remplacer la ligne 11 par:
-    ```bash
-    export BASH_DIR="<localisation>/<nom_dossier>"
-    ```
-    _Avec notre exmaple précédent cela donne : `export BASH_DIR="~/.dotfiles/bash_config"`_
-- 3 : Lancer l'installation : `$ <emplacement_choisi>/<nom_choisi>/install.sh`:
-    example avec : localisation et nom = ~/.dotfiles/bash_config
-    ```bash
-    $ ~/.dotfiles/bash_config/install.sh
-    ```
+
+On peut aussi choisir, en fonction de ses préfèrences, de changer l'emplacement et nom du dossier cloné:
+
+*Example avec localisation=~/.dotfiles et nom-dossier=bash\_config*
+
+```bash
+$ git clone https://github.com/alterGNU/bash.git ~/.dotfiles/bash_config && ~/.dotfiles/bash_config/install.sh
+```
 
 # 1 - BASH repo
 Ce dossier regroupant l'ensemble de mes configurations personnels du shell bash contient :
@@ -109,8 +103,9 @@ placé dans le `$BASH_DIR/history`
 ### `install.sh`
 Ce script permet l'installation des configurations personnelles de bash, pour cela il:
 - 1 : **Vérifie** que le shell utilisé est bien **bash**, sinon quitte l'éxécution en produisant l'erreur 66
-- 2 : **Archive** dans le dossier ~/.backupfiles/ (le crée si besoin) l'ensemble des BDF actuels.
-- 3 : **Crée** deux liens symboliques (indispensable) dans le $HOME : `~/.bash_profil` & `~/.bash_logout`
+- 2 : **Vérifie** la valeur de la variable d'environnement $BASH_DIR correspond bien à l'emplacement actuel/choisi
+- 3 : **Archive** dans le dossier ~/.backupfiles/ (le crée si besoin) l'ensemble des BDF actuels.
+- 4 : **Crée** deux liens symboliques (indispensable) dans le $HOME : `~/.bash_profil` & `~/.bash_logout`
 
 Afin de limiter au maximum la surcharge de $HOME par des dotfiles inutiles, on se limite aux deux liens ci-dessous.
 Ceci est possible car `bash_login` source les fichiers `bashrc` et `aliases` _(inutile donc qu'ils soient présent dans

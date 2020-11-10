@@ -22,8 +22,9 @@ Prefix=$(date +%F)
 # Vérifie si des liens symboliques menant vers des BDF ont précédemment étés créés et le supprime.
 Erase_Links() {
     for file in "${Bash_DotFiles[@]}"; do
-        [[ -L ~/.${file} ]] && rm -v ~/.${file} || echo -n " car le lien symbolique ~/.${file} n'existe pas"
+        [[ -L ~/.${file} ]] && rm -v ~/.${file}
     done
+    return 0
 }
 
 # -[ RESTORE_INIT ]---------------------------------------------------------------------------------
@@ -33,6 +34,7 @@ Restore_Init() {
     for file in $(ls ${OriginFolder});do
         cp -v ${OriginFolder}/${file} ${HOME}/.${file}
     done
+    return 0
 }
 
 # -[ CLEAN_DAILY_SAVED ]----------------------------------------------------------------------------
@@ -41,6 +43,7 @@ Clean_Daily_Saved() {
     # Efface la sauvegarde du jour si elle existe
     DailySaveFolder="${BackFold}/bash_${Prefix}"
     [[ -d ${DailySaveFolder} ]] && rm -rfv ${DailySaveFolder}
+    return 0
 }
 
 # =[ MAIN () ]======================================================================================
