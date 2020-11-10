@@ -5,7 +5,7 @@ Cette configuration personnelle de bash déclare et utilise une variable d'ENVIR
 ## Installation standart :
 Par défaut, ce dossier contenant les dotfiles de bash se nomme `.bash/` et se situe dans le $HOME
 
-Ainsi $BASH\_DIR=`$HOME/.bash/*`, et pour installer, de manière standart, les modifications de bash qu'il contient :
+Ainsi $BASH\_DIR=`$HOME/.bash`, et pour installer, de manière standart, les modifications de bash qu'il contient :
 
 * 0 - Se placer dans le $HOME
 * 1 - Cloner le repo dans le $HOME en tant que dotfile
