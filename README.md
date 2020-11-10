@@ -1,22 +1,24 @@
 # 0 - Installation
 Cette configuration personnelle de bash déclare et utilise une variable d'ENVIRONNEMENT nommée `BASH_DIR` correspondant
-à la localisation du dossier `bash/`
+à la localisation de ce dossier git : `.bash/`
 
 ## Installation standart - $BASH\_DIR:`$HOME/.bash/*`
-Cloner le repo dans le $HOME en tant que dotfile puis installer configuration :
-
-_Se placer à l'emplacement où l'on souhaite installer le dossier bash (généralement dans le $HOME) pui exécuter install_
-```bash
-$ git clone https://github.com/alterGNU/bash.git && ./bash/install.sh
-```
-
-On peut aussi choisir, en fonction de ses préfèrences, de changer l'emplacement et nom du dossier cloné:
-
-*Example avec localisation=~/.dotfiles et nom-dossier=bash\_config*
+* 0 - Se placer dans le $HOME
+* 1 - Cloner le repo dans le $HOME en tant que dotfile
+* 2 - Lancer le script d'installaton
+* 3 - Sourcer `bash_profile` pour rendre les changements effectifs dans le shell courant:
 
 ```bash
-$ git clone https://github.com/alterGNU/bash.git ~/.dotfiles/bash_config && ~/.dotfiles/bash_config/install.sh
+$ cd && git clone https://github.com/alterGNU/bash.git && ./.bash/install.sh && source .bash/install.sh
 ```
+
+Il est aussi possible de changer l'emplacement et le nom du dossier cloné:
+
+Example avec localisation=**~/.dotfiles** et nom-dossier=**bash_config**
+```bash
+$ git clone https://github.com/alterGNU/bash.git ~/.dotfiles/bash_config && ~/.dotfiles/bash_config/install.sh && . ~/.dotfiles/bash_config/bash_profile
+```
+_Remarque : Cela est possible car à l'installation `install.sh` modifie si besoin la valeur $BASH_DIR dans `bash_profile` en fonction du nom et de l'emplacement choisi par l'utilisateur.Ainsi cette modification impliquera surement qu'un commit soit éfféctué car le dossier fraichement cloné est modifié :)_
 
 # 1 - BASH repo
 Ce dossier regroupant l'ensemble de mes configurations personnels du shell bash contient :
@@ -98,6 +100,8 @@ A la déconnexion, en utilisant la fct-bash `check_ssh` dans un test, on peut tu
 Correspond au fichier contenant l'historique des commandes de bash.
 Par défaut ce fichier est `$HOME/.bash_history`, cependant, pour ne pas surcharger le $HOME de dotfiles on préfère le
 placé dans le `$BASH_DIR/history`
+
+_BUG : Bien que déplacé dans le $BASH_DIR dans `bash_profile` il arrive souvent que pour les premières commandes tapé, un fichier `~/.bash_history` soit créé...puis le changement s'effectue et ce fichier vestigial peut alors etre supprimé manuellement..._
 
 ## 1.2 - Fonctionnement des SCRIPTS
 ### `install.sh`
