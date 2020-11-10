@@ -10,8 +10,9 @@
 # [X] 3) Supprime les anciens dossiers créer ayant pour noms celui du dossier backup du jour
 
 # =[ VARIABLES  ]===================================================================================
-BackFold="$HOME/.backupfiles"           # Dossier contenant les Backup Folders
-OriginFolder="${BackFold}/initial_bash" # Dossier contenant les fichiers originaux
+BackFold="$HOME/.backupfiles"             # Dossier contenant les Backup Folders
+OriginFolder=$(ls -d ${BackFold}/*/ | grep -E "*bash.{11}/$" | sort | head -n 1)
+#OriginFolder="${BackFold}/<non_dossier>/ # Décommenter si déclaration manuelle(commenter ci-dessus)
 Bash_DotFiles=("bash_profile" "bashrc" "bash_logout" "aliases")
 Prefix=$(date +%F)
 # Déclaration conditionnelle de la variable du dossier dans lequel chercher les BDF
@@ -32,7 +33,7 @@ Erase_Links() {
 Restore_Init() {
     # Boucle copiant les fichiers initiaux dans le home
     for file in $(ls ${OriginFolder});do
-        cp -v ${OriginFolder}/${file} ${HOME}/.${file}
+        cp -v ${OriginFolder}${file} ${HOME}/.${file}
     done
     return 0
 }
@@ -47,4 +48,4 @@ Clean_Daily_Saved() {
 }
 
 # =[ MAIN () ]======================================================================================
-Erase_Links && Restore_Init && Clean_Daily_Saved && bash --login
+Erase_Links && Restore_Init && Clean_Daily_Saved

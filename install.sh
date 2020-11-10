@@ -37,9 +37,7 @@ exp_bash_dir () {
     bash_dir_profile=$(grep -E "^export BASH_DIR" ${Folder}/bash_profile | cut -d "\"" -f2)
     bash_dir_old=${bash_dir_profile}
     bash_dir_new=${Folder//$HOME/\$\{HOME\}}
-    echo "bash_dir_old $bash_dir_old"
-    echo "bash_dir_new $bash_dir_new"
-    [[ "${bash_dir_old}" == "${bash_dir_new}" ]] && echo "BASH_DIR par défaut!" || (echo "Changement de la valeur de BASH_DIR";sed -i "s,${bash_dir_old//\$/\\\$},${bash_dir_new//\$/\\\$},g" "$Folder/bash_profile")
+    [[ "${bash_dir_old}" == "${bash_dir_new}" ]] && echo "BASH_DIR par défaut!" || (echo "Changement de la valeur de BASH_DIR:";sed -i "s,${bash_dir_old//\$/\\\$},${bash_dir_new//\$/\\\$},g" "$Folder/bash_profile")
 }
 
 # -[ ARCHIVAGE ]------------------------------------------------------------------------------------
@@ -66,11 +64,11 @@ symbolinks() {
 # -[ END_INSTALL ]----------------------------------------------------------------------------------
 # Fonction affichant le message de fin d'installation
 end_install() {
-    echo "L'installation est maintenant terminée."
+    echo -e "\n L'installation est maintenant terminée. ;) "
     return 0
 }
 
 # =[ MAIN () ]======================================================================================
 # quitte le script si bash n'est pas le shell utilisé
 [[ check_bash_install ]] || exit 42
-exp_bash_dir && archivage && symbolinks && end_install && bash --login
+exp_bash_dir && archivage && symbolinks && end_install
