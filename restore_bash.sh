@@ -47,4 +47,4 @@ Clean_Daily_Saved() {
 }
 
 # =[ MAIN () ]======================================================================================
-Erase_Links && Restore_Init && Clean_Daily_Saved
+Erase_Links && Restore_Init && Clean_Daily_Saved && bash --login
