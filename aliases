@@ -41,17 +41,23 @@ alias ll='ls -alF'
 alias la='ls -A'
 alias l='ls -CF'
 
+# -[ VIM-LIKE ]-------------------------------------------------------------------------------------
+alias :q='exit'
+
 # ==================================================================================================
 # ALIAS-CONDITIONNELS
 # ==================================================================================================
 # Alias liés à la desinstallation du projet git .bash
-[[ -f ${BASH_DIR}/restore_bash.sh ]] && alias restore_bash="${BASH_DIR}/restore_bash.sh && source $HOME/.{profile,bashrc} && unset $BASH_DIR"
+[[ -f ${BASH_DIR}/restore_bash.sh ]] && alias restore_bash='${BASH_DIR}/restore_bash.sh && source $HOME/.{profile,bashrc} && unset $BASH_DIR'
+
+# -[ GIT_ALIASES ]----------------------------------------------------------------------------------
+alias graph='check_git && git log --graph --branches --oneline || echo "Vous devez être dans un git repo pour utiliser cette alias..."'
 
 # =[ VARIABLES ]====================================================================================
 # Variables permettant d'identifier la machine sur lequelle on se trouve :)
-Surfath="/mnt/c/Users/Laurent/OneDrive - etu.sorbonne-universite.fr"
-Deskpath="/mnt/d/OneDrive - etu.sorbonne-universite.fr"
-PPTI_HOME="/users/Etu8/2767308"
+Surfath='/mnt/c/Users/Laurent/OneDrive - etu.sorbonne-universite.fr'
+Deskpath='/mnt/d/OneDrive - etu.sorbonne-universite.fr'
+PPTI_HOME='/users/Etu8/2767308'
 
 # =[ FONCTIONS ]====================================================================================
 # Ensemble de fct qui, quand appelées, permettent de charger les aliases qu'elles contiennent.
@@ -61,34 +67,34 @@ PPTI_HOME="/users/Etu8/2767308"
 # -[ SSH ]------------------------------------------------------------------------------------------
 # Alias en liens avec connection SSH (inutile en PPTI)
 SSH-Alias() {
-    alias ppti="ssh 2767308@ssh.ufr-info-p6.jussieu.fr"
-    alias agent="nbr_agent-ssh && eval \$(ssh-agent -s) && ssh-add ~/.ssh/gitpro"
+    alias ppti='ssh 2767308@ssh.ufr-info-p6.jussieu.fr'
+    alias agent='nbr_agent-ssh && eval \$(ssh-agent -s) && ssh-add ~/.ssh/gitpro'
 }
 
 # -[ ONEDRIVEALIAS ]--------------------------------------------------------------------------------
 # Fct permettant de créer les alias spécifiques aux ordis persos
 OneDriveAlias() {
-    alias doc="cd '$OneDrive'/Documents/ && ls -a"
-    alias fac="cd '$OneDrive'/Documents/Fac/ && ls -a"
-    alias wiki="cd '$OneDrive'/Documents/Wiki/ && ls -a"
-    alias 002="cd '$OneDrive'/Documents/Fac/S3/002/ && ls -a"
-    alias 005="cd '$OneDrive'/Documents/Fac/S3/005/ && ls -a"
-    alias 011="cd '$OneDrive'/Documents/Fac/S3/011/ && ls -a"
-    alias 018="cd '$OneDrive'/Documents/Fac/S3/018/ && ls -a"
-    alias 019="cd '$OneDrive'/Documents/Fac/S3/019/ && ls -a"
-    alias 020="cd '$OneDrive'/Documents/Fac/S3/020/ && ls -a"
+    alias doc='cd "$OneDrive"/Documents/ && ls -a'
+    alias fac='cd "$OneDrive"/Documents/Fac/ && ls -a'
+    alias wiki='cd "$OneDrive"/Documents/Wiki/ && ls -a'
+    alias 002='cd "$OneDrive"/Documents/Fac/S3/002/ && ls -a'
+    alias 005='cd "$OneDrive"/Documents/Fac/S3/005/ && ls -a'
+    alias 011='cd "$OneDrive"/Documents/Fac/S3/011/ && ls -a'
+    alias 018='cd "$OneDrive"/Documents/Fac/S3/018/ && ls -a'
+    alias 019='cd "$OneDrive"/Documents/Fac/S3/019/ && ls -a'
+    alias 020='cd "$OneDrive"/Documents/Fac/S3/020/ && ls -a'
 }
 
 # -[ PPTIALIAS ]------------------------------------------------------------------------------------
 # Fct permettant de créer les alias spécidique aux ordis de la ppti
 PPTIAlias() {
-    alias wiki="cd '$OneDrive'/Wiki/ && ls -a"
-    alias 002="cd '$PPTI_HOME'/S3/002/ && ls -a"
-    alias 005="cd '$PPTI_HOME'/S3/005/ && ls -a"
-    alias 011="cd '$PPTI_HOME'/S3/011/ && ls -a"
-    alias 018="cd '$PPTI_HOME'/S3/018/ && ls -a"
-    alias 019="cd '$PPTI_HOME'/S3/019/ && ls -a"
-    alias 020="cd '$PPTI_HOME'/S3/020/ && ls -a"
+    alias wiki='cd "$OneDrive"/Wiki/ && ls -a'
+    alias 002='cd "$PPTI_HOME"/S3/002/ && ls -a'
+    alias 005='cd "$PPTI_HOME"/S3/005/ && ls -a'
+    alias 011='cd "$PPTI_HOME"/S3/011/ && ls -a'
+    alias 018='cd "$PPTI_HOME"/S3/018/ && ls -a'
+    alias 019='cd "$PPTI_HOME"/S3/019/ && ls -a'
+    alias 020='cd "$PPTI_HOME"/S3/020/ && ls -a'
 }
 
 # =[ MAIN () ]======================================================================================
