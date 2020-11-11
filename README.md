@@ -13,7 +13,7 @@ Ainsi $BASH\_DIR=`$HOME/.bash`, et pour installer, de manière standart, les mod
 * 3 - Sourcer `bash_profile` pour rendre les changements effectifs dans le shell courant:
 
 ```bash
-$ cd && git clone https://github.com/alterGNU/bash.git && ./.bash/install.sh && source .bash/bash_profile
+$ cd && git clone https://github.com/alterGNU/.bash.git && ./.bash/install.sh && source .bash/bash_profile
 ```
 
 ## Installation personnalisée : 
@@ -24,7 +24,7 @@ Example avec :
 - nom-dossier=**bash_config**
 
 ```bash
-$ git clone https://github.com/alterGNU/bash.git ~/.dotfiles/bash_config && ~/.dotfiles/bash_config/install.sh && . ~/.dotfiles/bash_config/bash_profile
+$ git clone https://github.com/alterGNU/.bash.git ~/.dotfiles/bash_config && ~/.dotfiles/bash_config/install.sh && . ~/.dotfiles/bash_config/bash_profile
 ```
 _Remarque : Cela est possible car à l'installation `install.sh` modifie si besoin la valeur $BASH_DIR dans
 `bash_profile` en fonction du nom et de l'emplacement choisi par l'utilisateur.Ainsi cette modification impliquera
