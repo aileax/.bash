@@ -34,7 +34,7 @@ fi
 # Permet d'afficher une fenêtre d'alerte, mais ne fonctionne que sous linux (pas WSL2)
 # Utile par exemple pour notifier à la fin d'une longue commande qu'elle est terminée!
 #   sudo apt update && apt upgrade ; sleep 10; alert
-alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
+#alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'")"'
 
 # -[ LISTER ]---------------------------------------------------------------------------------------
 alias ll='ls -alF'
@@ -48,10 +48,10 @@ alias :q='exit'
 # ALIAS-CONDITIONNELS
 # ==================================================================================================
 # Alias liés à la desinstallation du projet git .bash
-[[ -f ${BASH_DIR}/restore_bash.sh ]] && alias restore_bash='${BASH_DIR}/restore_bash.sh && source $HOME/.{profile,bashrc} && unset $BASH_DIR'
+[[ -f ${BASH_DIR}/restore_bash.sh ]] && alias restore_bash="${BASH_DIR}/restore_bash.sh && source $HOME/.{profile,bashrc} && unset BASH_DIR"
 
 # -[ GIT_ALIASES ]----------------------------------------------------------------------------------
-alias graph='check_git && git log --graph --branches --oneline || echo "Vous devez être dans un git repo pour utiliser cette alias..."'
+alias graph='check_git && git log --graph --branches --oneline || echo "Vous devez-être dans un git-repo pour utiliser cet alias..."'
 
 # =[ VARIABLES ]====================================================================================
 # Variables permettant d'identifier la machine sur lequelle on se trouve :)
@@ -67,8 +67,8 @@ PPTI_HOME='/users/Etu8/2767308'
 # -[ SSH ]------------------------------------------------------------------------------------------
 # Alias en liens avec connection SSH (inutile en PPTI)
 SSH-Alias() {
-    alias ppti='ssh 2767308@ssh.ufr-info-p6.jussieu.fr'
-    alias agent='nbr_agent-ssh && eval \$(ssh-agent -s) && ssh-add ~/.ssh/gitpro'
+    alias ppti="ssh 2767308@ssh.ufr-info-p6.jussieu.fr"
+    alias agent="nbr_agent-ssh && eval \$(ssh-agent -s) && ssh-add ~/.ssh/gitpro"
 }
 
 # -[ ONEDRIVEALIAS ]--------------------------------------------------------------------------------
