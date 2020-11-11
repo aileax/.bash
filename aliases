@@ -6,15 +6,15 @@
 
 # =[ CONFIGURATION CONDITIONNELLE/SPÉCIFIQUE ]=====================================================
 # Certains alias ne doivent être actifs que sur certains devices (raccourcis notamment)
+
 # Pour ce faire deux possibilitées:
 # [X] 1) - Créé plusieurs bash_aliases, puis via bash.sh (install&màj) charger le bon 
 # [O] 2) - Créé un bash-aliases universel, contenant des aliases conditionnels(if statement)
 
-# =[ COMMANDES UTILES ]=============================================================================
-# Features à implémenter si possibles...
-# [ ] Lister l'ensemble des aliases actifs, faire `$ alias`
-# [ ] Déclarer un alias faire `alias='<cmd>'`
-# [ ] Défaire un alias faire `unalias <nom>` ou pour défaire tous `unalias -a`
+# Liste des commandes utiles:
+#   - Lister l'ensemble des aliases actifs, faire `$ alias`
+#   - Déclarer un alias faire `alias='<cmd>'`
+#   - Défaire un alias faire `unalias <nom>` ou pour défaire tous `unalias -a`
 
 # ==================================================================================================
 # ALIAS-POUR-TOUS & TOUS COMMUN!
@@ -68,7 +68,7 @@ PPTI_HOME='/users/Etu8/2767308'
 # Alias en liens avec connection SSH (inutile en PPTI)
 SSH-Alias() {
     alias ppti="ssh 2767308@ssh.ufr-info-p6.jussieu.fr"
-    alias agent="nbr_agent-ssh && eval \$(ssh-agent -s) && ssh-add ~/.ssh/gitpro"
+    alias agent="nbr_agent-ssh && eval \$(ssh-agent -s) && ssh-add ~/.ssh/gitpro || nbr_agent-ssh -v"
 }
 
 # -[ ONEDRIVEALIAS ]--------------------------------------------------------------------------------
