@@ -8,6 +8,18 @@
 # [X] 2) Crée un fichier de sauvegarde caché ~./backupfiles/bash dans lequel déplacer les vieus dot.
 # [X] 3) Crée pour les dotfiles se devant d'être localisés dans le $HOME des liens symboliques
 
+# -[ CHECK_BASH ]-------------------------------------------------------------------------
+# Vérifie que le SHELL par défaut est bien bash,si non, demande user s'il veut le changer!
+# On lance le test avant la déclaration des variables car selon le shell utilisé, elle peuvent
+# causer des erreurs!
+if [ $Current_User_SHELL != *"bash" ] ; then
+    echo "Installation ne peut se faire car $USER n'utilise pas bash comme shell mais $SHELL!"
+    echo "Pour définir bash comme shell par défaut vous devez faire la commande 'chsh -s /bin/bash', puis redémarrer le terminal!"
+    exit 22
+else
+    echo -e "L'installation de la configuration personnalisée du shell bash commence...\n"
+fi
+
 # =[ VARIABLES  ]===================================================================================
 Current_User_SHELL=$(echo "$SHELL")
 List_SHELLS=$(cat /etc/shells)
@@ -17,19 +29,6 @@ File_Full_Path=$(readlink -f $0)              #Récupère le chemin abs du scrip
 Folder=${File_Full_Path//\/${0##*/}/}         #Soustrait au path le nom du script = dossier parent
 
 # =[ FUNCTIONS ]==========================================================================
-# -[ CHECK_BASH ]-------------------------------------------------------------------------
-# Vérifie que le SHELL par défaut est bien bash,si non, demande user s'il veut le changer!
-check_bash_install() {
-    if [[ $Current_User_SHELL != *"bash" ]] ; then
-        echo -e "Bash n'est pas le shell par défaut!"
-        echo -e "L'installation ne se lance que s'il est le shell par defaut!"
-        echo -e "Pour cela faire chsh -s /bin/bash"
-        return 22
-    else
-        echo -e "L'installation de la configuration personnalisée du shell bash commence...\n"
-    fi
-    return 0
-}
 
 # -[ EXP_BASH_DIR ]---------------------------------------------------------------------------------
 # S'assure de la valeur de $BASH_DIR, si correspond à valeur par défaut ne fair rien sinon corrige
@@ -69,6 +68,4 @@ end_install() {
 }
 
 # =[ MAIN () ]======================================================================================
-# quitte le script si bash n'est pas le shell utilisé
-[[ check_bash_install ]] || exit 42
 exp_bash_dir && archivage && symbolinks && end_install
