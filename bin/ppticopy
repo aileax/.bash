@@ -1,54 +1,53 @@
 #!/bin/bash
 
-# scp : permet de copier un dossier/fichier depuis la PPTI vers le bureau
+# ppticopy : permet de copier un dossier/fichier depuis la PPTI vers le bureau
 
-# -[ FONCTIONNEMENT ]-------------------------------------------------------------------------------
-    # O argument passé retroune l'usage
-    # 1 argument passé :
-        # -h --help : affiche l'usage
-        # 
 # -[ ERROR_TABLE: ]---------------------------------------------------------------------------------
     # 0 arg:
         # 8 : pas de dossier à copier => affiche l'usage
     # 1 args:
         # 11 : 1er paramètre = -h:--help => affiche l'usage
-        # 14 : 1er paramètre n'est pas un dossier
     # 2 args:
         # 24 : 2éme paramètre n'est pas un dossier
-        # 28 : 2éme para n'est pas un dépot git
     # 3 arg:
         # 31 : trop d'argument passès => affiche l'usage
 
 # =[ VARIABLES ]====================================================================================
 nom=$(echo $0 | rev | cut -d "/" -f1 | rev)
 dossier=$(echo $0 | rev | cut -d "/" -f2- | rev)
+arg1=$1
+arg2=$2
 
 # =[ FUNCTIONS ]====================================================================================
 function usage(){
     echo "La fonction ${nom} se trouve dans ${dossier}"
     echo "Elle permet de copier un fichier ou un dossier de la PPTI vers cette machine"
-    echo -e "\nUsage: $nom -[vh] [emplacement_dossier_sur_PPTI] "
+    echo -e "\nUsage: ${nom} -[vh] [emplacement_dossier_sur_PPTI] "
     echo  "Sans second paramètre, elle copie le dossier dans le repertoire actuel"
     echo  "L'option -h(--help) permet d'afficher l'usage"
 }
 
 # Copie à l'emplacement actuel (cas 1 arg)
-function ssh_copy(){
-    echo "je copie ${1} ici ${2}"
+function ssh_copy_overthere(){
+    echo "je copie ${arg1} ici ${arg2}"
 }
 
 # Copie à l'emplacement du second argument (cas 1 arg)
-function ssh_copy_ici(){
-    echo "je copie ${1} ici ${PWD}"
+function ssh_copy_here(){
+    echo "je copie ${arg1} ici ${PWD}"
 }
 
 # =[ MAIN() ]=======================================================================================
 # i) Pas d'argument => analyse de dossier courant
-[[ $# -lt 0 ]] &&  usage && exit 8
+[[ $# -eq 0 ]] &&  usage && exit 8
+
 # ii) Plus de deux arguments => retourne l'usage
 [[ $# -gt 2 ]] && usage && exit 31
+
 #ii) cas (de  1 ou 2 arguments) restants
-case "$1" in
-    "-h"|"--help") usage && exit 11 ;;
-    *) [[ -z $2 ]] && ssh_copy || ssh_copy_ici;
-esac
+if [[ $# -eq 1 ]];then
+    [[ $1 == -h ]] && (usage;exit 11) || ssh_copy_here
+else
+    [[ -d $2 ]] && ssh_copy_overthere || (echo "Attention, ${arg2} n'est pas un dossier !";exit 24)
+fi
+
