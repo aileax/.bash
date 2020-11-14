@@ -30,11 +30,13 @@ function usage(){
 # Copie à l'emplacement actuel (cas 1 arg)
 function ssh_copy_overthere(){
     echo "je copie ${arg1} ici ${arg2}"
+    scp -r 2767308@ssh.ufr-info-p6.jussieu.fr:${arg1} ${arg2}
 }
 
 # Copie à l'emplacement du second argument (cas 1 arg)
 function ssh_copy_here(){
     echo "je copie ${arg1} ici ${PWD}"
+    scp -r 2767308@ssh.ufr-info-p6.jussieu.fr:${arg1} ${PWD}
 }
 
 # =[ MAIN() ]=======================================================================================

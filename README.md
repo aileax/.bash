@@ -182,7 +182,7 @@ variable...puis la retourne.
 
 Ainsi s'il n'y a pas d'SSH-AGENT en cours, elle retourne 0, sinon elle retourne le nombre de processus portant ce nom!
 
-À l'instar des autre fonctions elle accepte en options:
+À l'instar des autres fonctions elle accepte en options:
 - `-v/--verbose`: la rendant tchatty!
 -  `-h/--help`: affiche l'usage
 
@@ -195,12 +195,28 @@ Ainsi s'il n'y a pas d'SSH-AGENT en cours, elle retourne 0, sinon elle retourne 
     - retoune 0 si l'argument est un dossier git
     - retourne 28 si le dossier passé en paramètre n'est pas un dossier git
 
-_Ainsi tout autre retour d'erreurs (différents de 8 ou 28) correspond à une mauvaise utilisation de la commande_
+_Ainsi tout autres retour d'erreurs (différents de 8 ou 28) correspond à une mauvaise utilisation de la commande_
 
 Elle admet aussi deux options :
 - `-v/--verbose`: la rendant tchatty!
 -  `-h/--help`: affiche l'usage
 
+### `$ ppticopy` 
+**Permet de récupèrer des documents de la PPTI vers le PC-Perso (ssh-cp -r)**
+
+Cette fonction est juste un aliase de la commande `$ scp -r <docppti> <dossier> ` où:
+    - `<docppti` est le chemin, partant du home_ppti, menant au dossier ou document à copier
+    - `<dossier>` est le chemin, parant du pwd sur la machine actuelle, où l'on souhaite coller le dossier ou document
+      précédemment copié.
+
+Ainsi, le premier paramètre de la commande doit être le chemin du dossier ou document à copier (relatif partant du home)
+et le secon paramètre doit être l'emplacement où placer la copie. (chemin relatif, partant du pwd actuel ou absolue
+partant du home)
+
+Sans second argument, elle copie le dossier de la ppti dans le dossier courant (PWD)
+
+À l'instar des autres fonctions elle accepte en options:
+-  `-h`: affiche l'usage
 # Sources
 - [Bash startup files](https://www.gnu.org/software/bash/manual/html_node/Bash-Startup-Files.html#Bash-Startup-Files)
 - [bashrc vs bash_profile](https://linuxize.com/post/bashrc-vs-bash-profile/)

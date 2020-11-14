@@ -3,12 +3,15 @@
 # ==================================================================================================
 # INSTALLATION DES FICHIERS DE CONFIGURATION DE BASH => CUSTOM-BASH
 # ==================================================================================================
-# Script d'installation des bash_dotfiles
-# [X] 1) Vérifie que bash est le shell par défaut, sinon stop E66
-# [X] 2) Crée un fichier de sauvegarde caché ~./backupfiles/bash dans lequel déplacer les vieus dot.
-# [X] 3) Crée pour les dotfiles se devant d'être localisés dans le $HOME des liens symboliques
+# Fonctionnement
+    # 1) Vérifie que bash est le shell par défaut, sinon stop E66
+    # 2) Crée un fichier de sauvegarde caché ~./backupfiles/bash dans lequel déplacer les vieus dot.
+    # 3) Crée pour les dotfiles se devant d'être localisés dans le $HOME des liens symboliques
 
-# -[ CHECK_BASH ]-------------------------------------------------------------------------
+# TODO
+# [ ] FIX Fill_Full_PATH (l31) car erreur lors de l'utilisation sous sheel=ZSH! voir $(cd $(PWD))
+
+# =[ CHECK_BASH ]===================================================================================
 # Vérifie que le SHELL par défaut est bien bash,si non, demande user s'il veut le changer!
 # On lance le test avant la déclaration des variables car selon le shell utilisé, elle peuvent
 # causer des erreurs!
@@ -28,7 +31,7 @@ Prefix=$(date +%F)
 File_Full_Path=$(readlink -f $0)              #Récupère le chemin abs du script ds tous les cas!
 Folder=${File_Full_Path//\/${0##*/}/}         #Soustrait au path le nom du script = dossier parent
 
-# =[ FUNCTIONS ]==========================================================================
+# =[ FUNCTIONS ]====================================================================================
 
 # -[ EXP_BASH_DIR ]---------------------------------------------------------------------------------
 # S'assure de la valeur de $BASH_DIR, si correspond à valeur par défaut ne fair rien sinon corrige
