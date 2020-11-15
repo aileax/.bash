@@ -2,13 +2,17 @@
 
 # ppticopy : permet de copier un dossier/fichier depuis la PPTI vers le bureau
 
+# -[ TODO ]-----------------------------------------------------------------------------------------
+# [ ] Différencier les adresses absolues et relatives en arg2:
+    # [ ] Absolue - pwd = relative...regarder si ca match puis choisir la commande
+
 # -[ ERROR_TABLE: ]---------------------------------------------------------------------------------
     # 0 arg:
-        # 8 : pas de dossier à copier => affiche l'usage
+        # 8 : nombre d'argument different de 1 ou 2
     # 1 args:
         # 11 : 1er paramètre = -h:--help => affiche l'usage
     # 2 args:
-        # 24 : 2éme paramètre n'est pas un dossier
+        # 24 : 2éme paramètre n'est pas un dossier et vous ne voulez pas le créer
     # 3 arg:
         # 31 : trop d'argument passès => affiche l'usage
 
@@ -22,34 +26,42 @@ arg2=$2
 function usage(){
     echo "La fonction ${nom} se trouve dans ${dossier}"
     echo "Elle permet de copier un fichier ou un dossier de la PPTI vers cette machine"
-    echo -e "\nUsage: ${nom} -[vh] [emplacement_dossier_sur_PPTI] "
+    echo -e "\nUsage: ${nom} -[vh] [chemin_dossier_sur_PPTI] "
     echo  "Sans second paramètre, elle copie le dossier dans le repertoire actuel"
     echo  "L'option -h(--help) permet d'afficher l'usage"
 }
 
 # Copie à l'emplacement actuel (cas 1 arg)
 function ssh_copy_overthere(){
-    echo "je copie ${arg1} ici ${arg2}"
-    scp -r 2767308@ssh.ufr-info-p6.jussieu.fr:${arg1} ${arg2}
+    if [[ -d ${arg2} ]]; then
+        echo -e "Vous souhaitez copier ppti:$arg1 dans $NAME:$PWD/$arg2\nPour annuler faire [Ctrl]+[C]; sinon saisissez votre mot de passe pour la connection ssh."
+        scp -r 2767308@ssh.ufr-info-p6.jussieu.fr:${arg1} ${arg2}
+    else
+        while true; do
+            echo "Le dossier $PWD/$arg2 n'existe pas sur $NAME..."
+            read -p "Souhaitez vous le créer?[O|N]" rep
+            case $rep in
+                [YyoO]* ) mkdir -p $PWD/$arg2 && scp -r 2767308@ssh.ufr-info-p6.jussieu.fr:${arg1} ${arg2} ; break;;
+                [Nn]* ) echo "Mission aborted!!!" ; exit 24;;
+                * ) echo -e "Répondez :\n   - O pour oui\n   - N pour non";;
+            esac
+        done
+    fi
 }
 
 # Copie à l'emplacement du second argument (cas 1 arg)
 function ssh_copy_here(){
-    echo "je copie ${arg1} ici ${PWD}"
+    echo -e "Vous souhaitez copier ppti:$arg1 dans $NAME:$PWD\nPour annuler faire [Ctrl]+[C]; sinon saisissez votre mot de passe pour la connection ssh."
     scp -r 2767308@ssh.ufr-info-p6.jussieu.fr:${arg1} ${PWD}
 }
 
 # =[ MAIN() ]=======================================================================================
 # i) Pas d'argument => analyse de dossier courant
-[[ $# -eq 0 ]] &&  usage && exit 8
-
-# ii) Plus de deux arguments => retourne l'usage
-[[ $# -gt 2 ]] && usage && exit 31
+[[ $# -eq 0 || $# -gt 2 ]] &&  usage && exit 8
 
 #ii) cas (de  1 ou 2 arguments) restants
-if [[ $# -eq 1 ]];then
-    [[ $1 == -h ]] && (usage;exit 11) || ssh_copy_here
-else
-    [[ -d $2 ]] && ssh_copy_overthere || (echo "Attention, ${arg2} n'est pas un dossier !";exit 24)
-fi
 
+case "$1" in
+    "-h"|"--help") usage && exit 11 ;;
+    *) [[ $# -eq 1 ]] && ssh_copy_here || ssh_copy_overthere
+esac
