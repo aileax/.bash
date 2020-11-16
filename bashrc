@@ -17,6 +17,24 @@ COLOR_BLUE="\033[0;34m"
 COLOR_WHITE="\033[0;37m"
 COLOR_RESET="\033[0m"
 
+# -[ SHELL-NON-LOGUÉ ]-----------------------------------------------------------------------------
+# Lorsque l'on se trouve dans un shell non logué, mime le foncitonnement de bash_login et logout
+function shell_non_log(){
+    # Partie mimant login->bash_profile
+    export BASH_DIR="${HOME}/.bash"
+    export HISTFILE="${BASH_DIR}/history"
+    [[ -d ${BASH_DIR} ]] && . ${BASH_DIR}/aliases 
+    [[ -d $BASH_DIR/bin ]] && export PATH="$BASH_DIR/bin:$PATH"
+    [[ -d $HOME/.local/bin ]] && export PATH="$HOME/.local/bin:$PATH"
+    [[ -d $HOME/usr/bin ]] && export PATH="$HOME/usr/bin:$PATH"
+    [[ -d $HOME/bin ]] && export PATH="$HOME/bin:$PATH"
+    # Partie mimant logout->bash_logout
+    #alias :q="ask_to_kill_agent && exit"   # Décommenter une fois la fct créer  
+    #alias exit="ask_to_kill_agent && exit" # Décommenter une fois la fct créer 
+}
+# Test si on est dans un shell non logué, et si oui mime le fonctionnement de bas_{login;logout}
+shopt -q login_shell || shell_non_log
+
 # -[ DÉBIAN_CHROOT ]-------------------------------------------------------------------------------
 # Chroot:exécuter une commande ou un shell interactif avec un répertoire racine spécial
 # CHangeROOT permet ainsi de changer le repertoire racine vers un nouvel emplacement
