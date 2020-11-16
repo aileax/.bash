@@ -20,15 +20,15 @@ $ cd && git clone https://github.com/alterGNU/.bash.git && ./.bash/install.sh &&
 Il est aussi possible de changer l'emplacement et le nom du dossier cloné, ainsi $BASH\_DIR=`<localisation>/<nom-dossier>*`
 
 Example avec :
-- localisation=**~/.dotfiles** 
-- nom-dossier=**bash_config**
+- localisation=**~/.config** 
+- nom-dossier=**bash**
 
 ```bash
-$ git clone https://github.com/alterGNU/.bash.git ~/.dotfiles/bash_config && ~/.dotfiles/bash_config/install.sh && . ~/.dotfiles/bash_config/bash_profile
+$ git clone https://github.com/alterGNU/.bash.git ~/.config/bash && ~/.config/bash/install.sh && . ~/.config/bash/bash_profile
 ```
 _Remarque : Cela est possible car à l'installation `install.sh` modifie si besoin la valeur $BASH_DIR dans
-`bash_profile` en fonction du nom et de l'emplacement choisi par l'utilisateur.Ainsi cette modification impliquera
-surement qu'un commit soit éfféctué car le dossier fraichement cloné est modifié :)_
+`bash_profile` ainsi que dans `bashrc` et ce en fonction du nom et de l'emplacement choisi par l'utilisateur.Ainsi cette
+modification impliquera surement qu'un commit soit éfféctué car le dossier fraichement cloné est modifié :)_
 
 ## Désinstallation
 Pour réstaurer la configuration initiale de bash (datant d'avant l'utilisation du script `install.sh` un script de
@@ -56,6 +56,7 @@ Ce dossier regroupant l'ensemble de mes configurations personnelles du shell bas
     - `coucou` : créé pour apprendre à déclarer des fcts...inutile...
     - `nbr_agent-ssh` : Retourne le nombre d'agent ssh actif (methode:parcours `procfs`)
     - `check_git` : vérifie qu'un dossier est bien dans l'arborescence d'un dépôt git local
+    - `ppticopy` : permet de copier des documents se trouvant sur la ppti vers mes appareils personnels
 
 ## 1.1 - Les fichiers : Bash\_DotFiles
 ### RAPPELS : Fonctionnement et Ordre de chargement des BDF
@@ -79,21 +80,9 @@ On doit y placer les commandes ne devant s'exécutées qu'une seule fois, il fau
 - les commandes ajoutant des dossiers au **$PATH**
     - `${BASH_DIR}/bin` : pour charger les fonctions personnelles de bash
 
-### Le fichier `bashrc` : *(Sourcé par bash_profile)*
+### Le fichier `~/.bashrc` : *(Sourcé par bash_profile si shell-logué,Sourcé auto si shell-non-logué)*
 Y placé les commandes devant s'éxécutées à chaque fois qu'on démarre le shell comme les **options et configurations** de
 bash.
-
-Normalement le bashrc se trouve dans le home et est chargé lors des Interactive non-loging shell.
-Cependant dans notre installation, il est sourcé pas bash\_profile et reste dans le $BASH\_DIR afin de limiter le nombre
-de dotfiles présent dans le $HOME...
-
-Cela à pour principal conséquence de le rendre inutilisé par les session interactive non loguée du shell :
-- Exécution de script
-- Lancement de bash via la commande `$ bash`
-
-Il est bon de noter qu'il est facile de corriger ce problème en appliquant une des deux solutions suivantes:
-- 1) Créer un lien symbolique pointant vers lui dans le home : `$ ln -s $BASH_DIR/bashrc $HOME/.bashrc`
-- 2) Utiliser l'option suivante: `$ bash --rcfile "$BASH_DIR/bashrc`
 
 #### Personnalisation du prompt
 Dans le bashrc se trouvent deux fonctions (`git_color`;`git_branch`) permettant d'afficher dans le prompt l'état du
@@ -117,7 +106,7 @@ Y placer les commandes que l'on souhaite exécuter lors de la déconnexion de la
 #### tuer le ssh-agent!
 A la déconnexion, en utilisant la fct-bash `check_ssh` dans un test, on peut tuer l'agent ssh en cours!
 ```bash
-[[ check_ssh ]] && eval $(ssh-agent -k)
+nbr_agent-ssh || eval $(ssh-agent -k)
 ```
 ### Le fichier `history`
 Correspond au fichier contenant l'historique des commandes de bash.
@@ -132,11 +121,7 @@ Ce script permet l'installation des configurations personnelles de bash, pour ce
 - 1 : **Vérifie** que le shell utilisé est bien **bash**, sinon quitte l'éxécution en produisant l'erreur 66
 - 2 : **Vérifie** la valeur de la variable d'environnement $BASH_DIR correspond bien à l'emplacement actuel/choisi
 - 3 : **Archive** dans le dossier ~/.backupfiles/ (le crée si besoin) l'ensemble des BDF actuels.
-- 4 : **Crée** deux liens symboliques (indispensable) dans le $HOME : `~/.bash_profil` & `~/.bash_logout`
-
-Afin de limiter au maximum la surcharge de $HOME par des dotfiles inutiles, on se limite aux deux liens ci-dessous.
-Ceci est possible car `bash_login` source les fichiers `bashrc` et `aliases` _(inutile donc qu'ils soient présent dans
-le $HOME)_
+- 4 : **Crée** trois liens symboliques (indispensable) dans le $HOME : `~/.bash_profil` & `~/.bashrc` & `~/.bash_logout`
 
 ### `restore_bash.sh`
 Ce script permet "d'annuler" les modifications apportées par `install.sh`, pour ce faire il:

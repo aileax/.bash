@@ -37,7 +37,7 @@ exp_bash_dir () {
     bash_dir_profile=$(grep -E "^export BASH_DIR" ${Folder}/bash_profile | cut -d "\"" -f2)
     bash_dir_old=${bash_dir_profile}
     bash_dir_new=${Folder//$HOME/\$\{HOME\}}
-    [[ "${bash_dir_old}" == "${bash_dir_new}" ]] && echo "BASH_DIR par défaut!" || (echo "Changement de la valeur de BASH_DIR:";sed -i "s,${bash_dir_old//\$/\\\$},${bash_dir_new//\$/\\\$},g" "$Folder/bash_profile")
+    [[ "${bash_dir_old}" == "${bash_dir_new}" ]] && echo "BASH_DIR par défaut!" || (echo "Changement de la valeur de BASH_DIR:";sed -i "s,${bash_dir_old//\$/\\\$},${bash_dir_new//\$/\\\$},g" "$Folder/bash_profile";sed -i "s,${bash_dir_old//\$/\\\$},${bash_dir_new//\$/\\\$},g" "$Folder/bashrc")
     return 0
 }
 
@@ -61,6 +61,7 @@ archivage() {
 symbolinks() {
     ln -sv "${Folder}/bash_profile" ~/."bash_profile"
     ln -sv "${Folder}/bash_logout" ~/."bash_logout"
+    ln -sv "${Folder}/bashrc" ~/."bashrc"
     return 0
 }
 
