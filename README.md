@@ -204,19 +204,18 @@ Elle admet aussi deux options :
 ### `$ ppticopy` 
 **Permet de récupèrer des documents de la PPTI vers le PC-Perso (ssh-cp -r)**
 
-Cette fonction est juste un aliase de la commande `$ scp -r <docppti> <dossier> ` où:
-    - `<docppti` est le chemin, partant du home_ppti, menant au dossier ou document à copier
-    - `<dossier>` est le chemin, parant du pwd sur la machine actuelle, où l'on souhaite coller le dossier ou document
+Cette fonction est juste un alias de la commande `$ scp -r <docppti> <dossier> ` où:
+    - `<docppti>` est le chemin, partant du home\_ppti, menant au dossier ou document à copier
+    - `<dossier>` est le chemin, partant du pwd sur la machine actuelle, où l'on souhaite coller le dossier ou document
       précédemment copié.
 
-Ainsi, le premier paramètre de la commande doit être le chemin du dossier ou document à copier (relatif partant du home)
-et le secon paramètre doit être l'emplacement où placer la copie. (chemin relatif, partant du pwd actuel ou absolue
-partant du home)
+- Si `<docppti>` :
+    - `-h/--help` : retourne l'usage
+- Si `<dossier>` 
+    - n'est pas précisé, copier `<docppti>` dans l'emplacement courant ($PWD).
+    - correspond à un dossier, y copie `<docppti>`.
+    - n'existe pas sur la machine, propose à l'utilisateur de créer le dossier avant d'y copier `<docppti>`.
 
-Sans second argument, elle copie le dossier de la ppti dans le dossier courant (PWD)
-
-À l'instar des autres fonctions elle accepte en options:
--  `-h`: affiche l'usage
 # Sources
 - [Bash startup files](https://www.gnu.org/software/bash/manual/html_node/Bash-Startup-Files.html#Bash-Startup-Files)
 - [bashrc vs bash_profile](https://linuxize.com/post/bashrc-vs-bash-profile/)
