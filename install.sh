@@ -15,7 +15,7 @@
 # Vérifie que le SHELL par défaut est bien bash,si non, demande user s'il veut le changer!
 # On lance le test avant la déclaration des variables car selon le shell utilisé, elle peuvent
 # causer des erreurs!
-if [ $Current_User_SHELL != *"bash" ] ; then
+if [[ $SHELL != *"bash" ]];then
     echo "Installation ne peut se faire car $USER n'utilise pas bash comme shell mais $SHELL!"
     echo "Pour définir bash comme shell par défaut vous devez faire la commande 'chsh -s /bin/bash', puis redémarrer le terminal!"
     exit 22
@@ -24,8 +24,6 @@ else
 fi
 
 # =[ VARIABLES  ]===================================================================================
-Current_User_SHELL=$(echo "$SHELL")
-List_SHELLS=$(cat /etc/shells)
 Prefix=$(date +%F)
 # Déclaration conditionnelle de la variable du dossier dans lequel chercher les BDF
 File_Full_Path=$(readlink -f $0)              #Récupère le chemin abs du script ds tous les cas!
@@ -40,6 +38,7 @@ exp_bash_dir () {
     bash_dir_old=${bash_dir_profile}
     bash_dir_new=${Folder//$HOME/\$\{HOME\}}
     [[ "${bash_dir_old}" == "${bash_dir_new}" ]] && echo "BASH_DIR par défaut!" || (echo "Changement de la valeur de BASH_DIR:";sed -i "s,${bash_dir_old//\$/\\\$},${bash_dir_new//\$/\\\$},g" "$Folder/bash_profile")
+    return 0
 }
 
 # -[ ARCHIVAGE ]------------------------------------------------------------------------------------
@@ -54,6 +53,7 @@ archivage() {
     done
     # S'il existe un .profile (qui n'est pas un lien) le déplacé dans le dossier d'archivage.
     [[ -f ~/.profile ]] && [[ ! -L ~/.profile ]] && mv -v ~/.profile ~/.backupfiles/bash_${Prefix}/profile
+    return 0
 }
 
 # -[ SYMBOLINK ]------------------------------------------------------------------------------------
@@ -61,6 +61,7 @@ archivage() {
 symbolinks() {
     ln -sv "${Folder}/bash_profile" ~/."bash_profile"
     ln -sv "${Folder}/bash_logout" ~/."bash_logout"
+    return 0
 }
 
 # -[ END_INSTALL ]----------------------------------------------------------------------------------

@@ -11,4 +11,4 @@ fi
 
 # -[ KILL-SSH ]-------------------------------------------------------------------------------------
 # Permet à la déconnexion de tuer le ssh-agent s'il est en cours d'exécution
-[[ check_ssh ]] && eval $(ssh-agent -k) #eval 2 really unset Envar!
+nbr_agent-ssh || eval $(ssh-agent -k) #eval 2 really unset Envar!
