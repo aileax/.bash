@@ -101,6 +101,6 @@ PPTIAlias() {
 
 # =[ MAIN () ]======================================================================================
 # Test des différents chemins possibles,propres aux diff. devices,pour déterminer quels alias charger
-[[ -d $Deskpath ]] && OneDrive=$Deskpath && OneDriveAlias && SSH-Alias # Si on est sur le PC-WSL2
-[[ -d $Surfath ]] && OneDrive=$Surfath && OneDriveAlias && SSH-Alias   # Si on est sur la Surface-WSL2
-[[ -d $PPTI_HOME ]] && PPTIAlias                                       # Si on est sur un PC de la PPTI
+[[ -d $Deskpath ]] && OneDrive=$Deskpath && OneDriveAlias # Si on est sur le PC-WSL2
+[[ -d $Surfath ]] && OneDrive=$Surfath && OneDriveAlias   # Si on est sur la Surface-WSL2
+[[ -d $PPTI_HOME ]] && PPTIAlias || SSH-Alias                          # Si on est sur un PC de la PPTI
