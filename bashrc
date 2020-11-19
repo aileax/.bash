@@ -102,15 +102,14 @@ fi
 # Fct coloration en fct du status du git repo.
 function git_color {
   case $LANG in
-      en* ) 
-          local git_status="$(git status 2> /dev/null)"
-          return_status="nothing to commit" 
-          ;;
       fr* ) 
           local git_status="$(git status 2> /dev/null)"
           return_status="rien à valider" 
           ;;
-      *) ;;
+      * ) 
+          local git_status="$(git status 2> /dev/null)"
+          return_status="nothing to commit" 
+          ;;
   esac
 
   if [[ ! ${git_status} =~  ${return_status} ]]; then
@@ -123,17 +122,16 @@ function git_color {
 # Fct retournant le nom de la branch sur laquelle on se trouve
 function git_branch {
     case $LANG in
-        en* ) 
-            local git_status="$(git status 2> /dev/null)"
-            local on_branch="On branch ([^${IFS}]*)"
-            local on_commit="HEAD detached at ([^${IFS}]*)"
-            ;;
         fr* ) 
             local git_status="$(git status 2> /dev/null)"
             local on_branch="Sur la branche ([^${IFS}]*)"
             local on_commit="HEAD detachée sur ([^${IFS}]*)"
             ;;
-        *) return 0 ;;
+        *)
+            local git_status="$(git status 2> /dev/null)"
+            local on_branch="On branch ([^${IFS}]*)"
+            local on_commit="HEAD detached at ([^${IFS}]*)"
+            ;;
     esac
 
     if [[ $git_status =~ $on_branch ]]; then
