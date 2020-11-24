@@ -1,0 +1,65 @@
+#!/bin/bash
+
+# ce pour CompileExecute : permet de compiler puis d'éxécuter un fichier passé en argument
+# Pour l'instant ne prend en compte que les "*.java" et "*.c"
+
+# ERROR-20: Le nom de fichier ne correspond à aucune extension connues
+# ERROR-21: aide affiché car demandée
+# ERROR-22: aide affiché car mauvaise utilisation (argument non acceptè car pas un option posssible)
+# ERROR-23: le fichier passé en paramètre n'est pas un Java existant dans le repertoire courant
+# ERROR-22: le fichier passé en paramètre n'est pas un C existant dans le repertoire courant
+
+# =[ VARIABLES ]====================================================================================
+nom=$(echo $0 | rev | cut -d "/" -f1 | rev)         # Récupère le nom de la commande
+dossier=$(echo $0 | rev | cut -d "/" -f2- | rev)    # Récupère l'emplacement de la commande
+fichier=$1
+
+# =[ FONCTIONS ]====================================================================================
+# Affiche l'aide et l'usage de la commande check_ssh
+function usage(){
+    echo "La fonction ${nom} se trouve dans ${dossier}"
+    echo "Cette commande permet de compiler puis d'éxécuter un fichier passé en argument ."
+    echo -e "\nUsage: $nom -[h] [fichier.ext]"
+    echo -e "- L'option -h(--help) permet d'afficher l'usage"
+    echo -e "- Les extensions actuellemnt prises en charge sont:\n    - '*.java'\n    - '*.c'"
+}
+ 
+# Compile puis execute le fichier java passé en argument s'il existe, sinon quitte
+function doJava(){
+    if [[ -f ${1} ]];then
+        javac ${1} && java ${1//\.java/}
+    else
+        echo "Il n'y a pas de fichier Java : ${1} présent dans le répertoire actuel"
+        return 23
+    fi
+    return 0
+}
+
+# Compile puis execute le fichier java passé en argument s'il existe, sinon retourn code 24
+function doC(){
+    if [[ -f ${1} ]];then
+        gcc -Wall ${1} -o ${1//\.c/} &&  ./${1//\.c/}
+    else
+        echo "Il n'y a pas de fichier C : ${1} présent dans le répertoire actuel"
+        return 24
+    fi
+    return 0
+}
+
+# Retourne une phrase si extension differente de celles connues puis quitte en produisant code 20
+function inconnu(){
+    echo "Le fichier passé en argument ne correspond pas à une extension prise en charge par ${nom}"
+    exit 20
+}
+
+# =[ MAIN() ]=======================================================================================
+## i) Trop d'argument : affiche l'usage
+[[ ! $# -eq 1 ]] && usage && exit 22
+## ii) 1 argument : différents cas rencontrés:
+case "$1" in
+    "-h"|"--help") usage && exit 21 ;;
+    *.java ) doJava ${fichier} && exit $?;;
+    *.c ) doC ${fichier} && exit $? ;;
+    *. ) doJava "${fichier}java" || doC "${fichier}c" || inconnu ;;
+    * ) doJava "${fichier}.java" || doC "${fichier}.c" || inconnu ;;
+esac

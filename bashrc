@@ -17,6 +17,25 @@ COLOR_BLUE="\033[0;34m"
 COLOR_WHITE="\033[0;37m"
 COLOR_RESET="\033[0m"
 
+# -[ SHELL-NON-LOGUÉ ]-----------------------------------------------------------------------------
+# Lorsque l'on se trouve dans un shell non logué, mime le foncitonnement de bash_login et logout
+function shell_non_log(){
+    # Partie mimant login->bash_profile
+    export BASH_DIR="${HOME}/.bash"
+    export HISTFILE="${BASH_DIR}/history"
+    [[ -d ${BASH_DIR} ]] && . ${BASH_DIR}/aliases 
+    [[ -d $BASH_DIR/bin ]] && export PATH="$BASH_DIR/bin:$PATH"
+    [[ -d $HOME/.local/bin ]] && export PATH="$HOME/.local/bin:$PATH"
+    [[ -d $HOME/usr/bin ]] && export PATH="$HOME/usr/bin:$PATH"
+    [[ -d $HOME/bin ]] && export PATH="$HOME/bin:$PATH"
+    # Partie mimant logout->bash_logout
+    #alias :q="ask_to_kill_agent && exit"   # Décommenter une fois la fct créer  
+    #alias exit="ask_to_kill_agent && exit" # Décommenter une fois la fct créer 
+}
+
+# Test si on est dans un shell non logué, et si oui mime le fonctionnement de bas_{login;logout}
+shopt -q login_shell || shell_non_log
+
 # -[ DÉBIAN_CHROOT ]-------------------------------------------------------------------------------
 # Chroot:exécuter une commande ou un shell interactif avec un répertoire racine spécial
 # CHangeROOT permet ainsi de changer le repertoire racine vers un nouvel emplacement
@@ -82,9 +101,18 @@ fi
 # -[ GIT-STATUS ]-----------------------------------------------------------------------------------
 # Fct coloration en fct du status du git repo.
 function git_color {
-  local git_status="$(git status 2> /dev/null)"
+  case $LANG in
+      fr* ) 
+          local git_status="$(git status 2> /dev/null)"
+          return_status="rien à valider" 
+          ;;
+      * ) 
+          local git_status="$(git status 2> /dev/null)"
+          return_status="nothing to commit" 
+          ;;
+  esac
 
-  if [[ ! $git_status =~ "nothing to commit" ]]; then
+  if [[ ! ${git_status} =~  ${return_status} ]]; then
     echo -e $COLOR_RED
   else
     echo -e $COLOR_GREEN
@@ -93,10 +121,19 @@ function git_color {
 
 # Fct retournant le nom de la branch sur laquelle on se trouve
 function git_branch {
-    local git_status="$(git status 2> /dev/null)"
-    local on_branch="On branch ([^${IFS}]*)"
-    local on_commit="HEAD detached at ([^${IFS}]*)"
-  
+    case $LANG in
+        fr* ) 
+            local git_status="$(git status 2> /dev/null)"
+            local on_branch="Sur la branche ([^${IFS}]*)"
+            local on_commit="HEAD detachée sur ([^${IFS}]*)"
+            ;;
+        *)
+            local git_status="$(git status 2> /dev/null)"
+            local on_branch="On branch ([^${IFS}]*)"
+            local on_commit="HEAD detached at ([^${IFS}]*)"
+            ;;
+    esac
+
     if [[ $git_status =~ $on_branch ]]; then
         local branch=${BASH_REMATCH[1]}
         echo "($branch)"
