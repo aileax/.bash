@@ -38,7 +38,7 @@ function doJava(){
 # Compile puis execute le fichier java passé en argument s'il existe, sinon retourn code 24
 function doC(){
     if [[ -f ${1} ]];then
-        gcc -Wall ${1} -o ${1//\.c/} &&  ./${1//\.c/}
+        gcc -Wall ${1} -o ${1//\.c/} -lm &&  ./${1//\.c/}
     else
         echo "Il n'y a pas de fichier C : ${1} présent dans le répertoire actuel"
         return 24
