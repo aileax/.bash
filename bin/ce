@@ -7,7 +7,8 @@
 # ERROR-21: aide affiché car demandée
 # ERROR-22: aide affiché car mauvaise utilisation (argument non acceptè car pas un option posssible)
 # ERROR-23: le fichier passé en paramètre n'est pas un Java existant dans le repertoire courant
-# ERROR-22: le fichier passé en paramètre n'est pas un C existant dans le repertoire courant
+# ERROR-24: le fichier passé en paramètre n'est pas un C existant dans le repertoire courant
+# ERROR-25: le fichier passé en paramètre n'est pas un Python existant dans le repertoire courant
 
 # =[ VARIABLES ]====================================================================================
 nom=$(echo $0 | rev | cut -d "/" -f1 | rev)         # Récupère le nom de la commande
@@ -35,13 +36,24 @@ function doJava(){
     return 0
 }
 
-# Compile puis execute le fichier java passé en argument s'il existe, sinon retourn code 24
+# Compile puis execute le fichier c passé en argument s'il existe, sinon retourn code 24
 function doC(){
     if [[ -f ${1} ]];then
-        gcc -Wall ${1} -o ${1//\.c/} &&  ./${1//\.c/}
+        gcc -Wall ${1} -o ${1//\.c/} -lm &&  ./${1//\.c/}
     else
         echo "Il n'y a pas de fichier C : ${1} présent dans le répertoire actuel"
         return 24
+    fi
+    return 0
+}
+
+# Execute le script python passé en argument s'il existe, sinon quitte
+function doPython(){
+    if [[ -f ${1} ]];then
+        python3 ${1}
+    else
+        echo "Il n'y a pas de script python : ${1} présent dans le répertoire actuel"
+        return 25
     fi
     return 0
 }
@@ -59,7 +71,8 @@ function inconnu(){
 case "$1" in
     "-h"|"--help") usage && exit 21 ;;
     *.java ) doJava ${fichier} && exit $?;;
+    *.py ) doPython ${fichier} && exit $? ;;
     *.c ) doC ${fichier} && exit $? ;;
-    *. ) doJava "${fichier}java" || doC "${fichier}c" || inconnu ;;
-    * ) doJava "${fichier}.java" || doC "${fichier}.c" || inconnu ;;
+    *. ) doJava "${fichier}java" || doC "${fichier}c" || doPython "${fichier}py" || inconnu ;;
+    * ) doJava "${fichier}.java" || doC "${fichier}.c" || doPython "${fichier}.py" || inconnu ;;
 esac
