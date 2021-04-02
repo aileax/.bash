@@ -87,6 +87,7 @@ SSH-Alias() {
 OneDriveAlias() {
     alias doc='cd "$OneDrive"/Documents/ && ls -a'
     alias fac='cd "$OneDrive"/Fac/ && ls -a'
+    alias lab='cd "$OneDrive"/LABO/ && ls -a'
     alias wiki='cd "$OneDrive"/Wiki/ && ls -a'
     alias 002='cd "$OneDrive"/Fac/S3/002/ && ls -a'
     alias 005='cd "$OneDrive"/Fac/S3/005/ && ls -a'
@@ -96,6 +97,9 @@ OneDriveAlias() {
     alias 020='cd "$OneDrive"/Fac/S3/020/ && ls -a'
     alias 013='cd "$OneDrive"/Fac/S4/013/ && ls -a'
     alias 006='cd "$OneDrive"/Fac/S4/006/ && ls -a'
+    alias 003='cd "$OneDrive"/Fac/S4/003/ && ls -a'
+    alias 009='cd "$OneDrive"/Fac/S4/009/ && ls -a'
+    alias 024='cd "$OneDrive"/Fac/S4/024/ && ls -a'
 }
 
 # -[ PPTIALIAS ]------------------------------------------------------------------------------------
