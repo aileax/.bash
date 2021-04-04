@@ -67,6 +67,7 @@ alias graph='check_git && git log --graph --branches --oneline || echo "Vous dev
 Surfath='/mnt/c/Users/Laurent/OneDrive'
 Deskpath='/mnt/d/OneDrive'
 PPTI_HOME='/users/Etu8/2767308'
+AsusGaming='~/OneDrive'
 
 # =[ FONCTIONS ]====================================================================================
 # Ensemble de fct qui, quand appelées, permettent de charger les aliases qu'elles contiennent.
@@ -112,6 +113,7 @@ PPTIAlias() {
 
 # =[ MAIN () ]======================================================================================
 # Test des différents chemins possibles,propres aux diff. devices,pour déterminer quels alias charger
-[[ -d $Deskpath ]] && OneDrive=$Deskpath && OneDriveAlias # Si on est sur le PC-WSL2
-[[ -d $Surfath ]] && OneDrive=$Surfath && OneDriveAlias   # Si on est sur la Surface-WSL2
-[[ -d $PPTI_HOME ]] && PPTIAlias || SSH-Alias             # Si on est sur un PC de la PPTI
+[[ -d $Deskpath ]] && OneDrive=$Deskpath && OneDriveAlias   # Si on est sur le PC-WSL2
+[[ -d $Surfath ]] && OneDrive=$Surfath && OneDriveAlias     # Si on est sur la Surface-WSL2
+[[ -d $AsusGaming]] && OneDrive=$Deskpath && OneDriveAlias  # Si on est sur le PC-Asus-Ubuntu
+[[ -d $PPTI_HOME ]] && PPTIAlias || SSH-Alias               # Si on est sur un PC de la PPTI
