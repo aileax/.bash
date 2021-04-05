@@ -67,7 +67,7 @@ alias graph='check_git && git log --graph --branches --oneline || echo "Vous dev
 Surfath='/mnt/c/Users/Laurent/OneDrive'
 Deskpath='/mnt/d/OneDrive'
 PPTI_HOME='/users/Etu8/2767308'
-AsusGaming='/home/trollo974/OneDrive'
+AsusGaming=$HOME'/OneDrive'
 
 # =[ FONCTIONS ]====================================================================================
 # Ensemble de fct qui, quand appelées, permettent de charger les aliases qu'elles contiennent.
