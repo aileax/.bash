@@ -17,7 +17,6 @@ export HISTFILE="${BASH_DIR}/history" # Déplace le fichier d'historique de bash
 # à la localisation de $BASH_DIR si cette dernière est définie et correspond à un dossier
 [[ -d ${BASH_DIR} ]] && . ${BASH_DIR}/bashrc 
 [[ -d ${BASH_DIR} ]] && . ${BASH_DIR}/aliases 
-is_it_wsl || [[ -f ${BASH_DIR}/speedswapper ]] && /usr/bin/xmodmap ${BASH_DIR}/speedswapper
 
 # =[ PATH ]=========================================================================================
 # Ajoute au PATH différents repo possible de bin perso s'ils existent
@@ -26,3 +25,6 @@ is_it_wsl || [[ -f ${BASH_DIR}/speedswapper ]] && /usr/bin/xmodmap ${BASH_DIR}/s
 [[ -d $HOME/usr/bin ]] && export PATH="$HOME/usr/bin:$PATH"
 [[ -d $HOME/bin ]] && export PATH="$HOME/bin:$PATH"
 
+# =[ SWAP ]=========================================================================================
+# Swap Esc et CapsLock ssi on se trouve pas dans un WSL
+is_it_wsl || [[ -f ${BASH_DIR}/speedswapper ]] && /usr/bin/xmodmap ${BASH_DIR}/speedswapper
