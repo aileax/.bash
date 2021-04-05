@@ -67,7 +67,7 @@ alias graph='check_git && git log --graph --branches --oneline || echo "Vous dev
 Surfath='/mnt/c/Users/Laurent/OneDrive'
 Deskpath='/mnt/d/OneDrive'
 PPTI_HOME='/users/Etu8/2767308'
-AsusGaming='~/OneDrive'
+AsusGaming='/home/trollo974/OneDrive'
 
 # =[ FONCTIONS ]====================================================================================
 # Ensemble de fct qui, quand appelées, permettent de charger les aliases qu'elles contiennent.
@@ -87,7 +87,7 @@ SSH-Alias() {
 # Fct permettant de créer les alias spécifiques aux ordis persos
 OneDriveAlias() {
     alias doc='cd "$OneDrive"/Documents/ && ls -a'
-    alias fac='cd "$OneDrive"/Fac/ && ls -a'
+    alias fac='cd "$OneDrive"/FAC/ && ls -a'
     alias lab='cd "$OneDrive"/LABO/ && ls -a'
     alias labC='cd "$OneDrive"/LABO/C && ls -a'
     alias labP='cd "$OneDrive"/LABO/PYTHON && ls -a'
@@ -103,18 +103,18 @@ OneDriveAlias() {
     alias labo='cd "$OneDrive"/LABO/OCAML/ && ls -a'
     alias labp='cd "$OneDrive"/LABO/PYTHON/ && ls -a'
     # Semestre3
-    alias 002='cd "$OneDrive"/Fac/S3/002/ && ls -a'
-    alias 005='cd "$OneDrive"/Fac/S3/005/ && ls -a'
-    alias 011='cd "$OneDrive"/Fac/S3/011/ && ls -a'
-    alias 018='cd "$OneDrive"/Fac/S3/018/ && ls -a'
-    alias 019='cd "$OneDrive"/Fac/S3/019/ && ls -a'
-    alias 020='cd "$OneDrive"/Fac/S3/020/ && ls -a'
+    alias 002='cd "$OneDrive"/FAC/S3/002/ && ls -a'
+    alias 005='cd "$OneDrive"/FAC/S3/005/ && ls -a'
+    alias 011='cd "$OneDrive"/FAC/S3/011/ && ls -a'
+    alias 018='cd "$OneDrive"/FAC/S3/018/ && ls -a'
+    alias 019='cd "$OneDrive"/FAC/S3/019/ && ls -a'
+    alias 020='cd "$OneDrive"/FAC/S3/020/ && ls -a'
     # Semestre4
-    alias 003='cd "$OneDrive"/Fac/S4/002/ && ls -a'
-    alias 006='cd "$OneDrive"/Fac/S4/006/ && ls -a'
-    alias 009='cd "$OneDrive"/Fac/S4/009/ && ls -a'
-    alias 013='cd "$OneDrive"/Fac/S4/013/ && ls -a'
-    alias 024='cd "$OneDrive"/Fac/S4/024/ && ls -a'
+    alias 003='cd "$OneDrive"/FAC/S4/002/ && ls -a'
+    alias 006='cd "$OneDrive"/FAC/S4/006/ && ls -a'
+    alias 009='cd "$OneDrive"/FAC/S4/009/ && ls -a'
+    alias 013='cd "$OneDrive"/FAC/S4/013/ && ls -a'
+    alias 024='cd "$OneDrive"/FAC/S4/024/ && ls -a'
 }
 
 # -[ PPTIALIAS ]------------------------------------------------------------------------------------
@@ -133,5 +133,5 @@ PPTIAlias() {
 # Test des différents chemins possibles,propres aux diff. devices,pour déterminer quels alias charger
 [[ -d $Deskpath ]] && OneDrive=$Deskpath && OneDriveAlias   # Si on est sur le PC-WSL2
 [[ -d $Surfath ]] && OneDrive=$Surfath && OneDriveAlias     # Si on est sur la Surface-WSL2
-[[ -d $AsusGaming ]] && OneDrive=$Deskpath && OneDriveAlias  # Si on est sur le PC-Asus-Ubuntu
+[[ -d $AsusGaming ]] && OneDrive=$AsusGaming && OneDriveAlias  # Si on est sur le PC-Asus-Ubuntu
 [[ -d $PPTI_HOME ]] && PPTIAlias || SSH-Alias               # Si on est sur un PC de la PPTI
