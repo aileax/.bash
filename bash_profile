@@ -25,6 +25,3 @@ export HISTFILE="${BASH_DIR}/history" # Déplace le fichier d'historique de bash
 [[ -d $HOME/usr/bin ]] && export PATH="$HOME/usr/bin:$PATH"
 [[ -d $HOME/bin ]] && export PATH="$HOME/bin:$PATH"
 
-# =[ SWAP ]=========================================================================================
-# Swap Esc et CapsLock ssi on se trouve pas dans un WSL
-is_it_wsl || [[ -f ${BASH_DIR}/speedswapper ]] && /usr/bin/xmodmap ${BASH_DIR}/speedswapper
