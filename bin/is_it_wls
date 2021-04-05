@@ -1,0 +1,27 @@
+#!/bin/bash
+
+# Petite fonctionnelle vérifiant si on se trouve sur un WSL ou sur un vrai linux
+
+# =[ FONCTIONS ]====================================================================================
+usage(){
+    echo -e "${nom} localisée dans $0"
+    echo "Fonctionnelle permettant de savoir si l'on se trouve dans un WSL ou dans un 'vrai' linux"
+    echo -e "\nUsage : ${nom} [-h] \n"
+}
+
+is_it_wsl(){
+    if grep -qEi "(Microsoft)|WSL" /proc/version &> /dev/null; then
+        return 0
+    else
+        return 1
+    fi
+
+}
+
+# -[ MAIN() ]---------------------------------------------------------------------------------------
+
+if [[ $# == 0 ]]; then
+    is_it_wsl
+else
+    usage && exit 101
+fi
