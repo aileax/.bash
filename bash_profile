@@ -17,6 +17,7 @@ export HISTFILE="${BASH_DIR}/history" # Déplace le fichier d'historique de bash
 # à la localisation de $BASH_DIR si cette dernière est définie et correspond à un dossier
 [[ -d ${BASH_DIR} ]] && . ${BASH_DIR}/bashrc 
 [[ -d ${BASH_DIR} ]] && . ${BASH_DIR}/aliases 
+is_it_wsl || [[ -f ${BASH_DIR}/speedswapper ]] && /usr/bin/xmodmap ${BASH_DIR}/speedswapper
 
 # =[ PATH ]=========================================================================================
 # Ajoute au PATH différents repo possible de bin perso s'ils existent
