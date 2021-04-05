@@ -88,6 +88,12 @@ SSH-Alias() {
 OneDriveAlias() {
     alias doc='cd "$OneDrive"/Documents/ && ls -a'
     alias fac='cd "$OneDrive"/Fac/ && ls -a'
+    alias lab='cd "$OneDrive"/LABO/ && ls -a'
+    alias labC='cd "$OneDrive"/LABO/C && ls -a'
+    alias labP='cd "$OneDrive"/LABO/PYTHON && ls -a'
+    alias labB='cd "$OneDrive"/LABO/BASH && ls -a'
+    alias labJ='cd "$OneDrive"/LABO/JAVA && ls -a'
+    alias labO='cd "$OneDrive"/LABO/OCAML && ls -a'
     alias wiki='cd "$OneDrive"/Wiki/ && ls -a'
     # LABO
     alias lab='cd "$OneDrive"/LABO/ && ls -a'
