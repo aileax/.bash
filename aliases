@@ -89,6 +89,13 @@ OneDriveAlias() {
     alias doc='cd "$OneDrive"/Documents/ && ls -a'
     alias fac='cd "$OneDrive"/Fac/ && ls -a'
     alias wiki='cd "$OneDrive"/Wiki/ && ls -a'
+    # LABO
+    alias lab='cd "$OneDrive"/LABO/ && ls -a'
+    alias labb='cd "$OneDrive"/LABO/BASH/ && ls -a'
+    alias labc='cd "$OneDrive"/LABO/C/ && ls -a'
+    alias labj='cd "$OneDrive"/LABO/JAVA/ && ls -a'
+    alias labo='cd "$OneDrive"/LABO/OCAML/ && ls -a'
+    alias labp='cd "$OneDrive"/LABO/PYTHON/ && ls -a'
     # Semestre3
     alias 002='cd "$OneDrive"/Fac/S3/002/ && ls -a'
     alias 005='cd "$OneDrive"/Fac/S3/005/ && ls -a'
