@@ -50,6 +50,7 @@ alias javadoc="javadoc -d doc"
 
 # -[ BUREAU-DISTANCE ]------------------------------------------------------------------------------
 alias bd="sudo /etc/init.d/xrdp start"
+alias kbd="sudo /etc/init.d/xrdp stop"
 
 # ==================================================================================================
 # ALIAS-CONDITIONNELS
