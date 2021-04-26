@@ -64,9 +64,10 @@ alias graph='check_git && git log --graph --branches --oneline || echo "Vous dev
 # =[ VARIABLES ]====================================================================================
 # Variables permettant d'identifier la machine sur lequelle on se trouve :)
 #Surfath='/mnt/c/Users/Laurent/OneDrive - etu.sorbonne-universite.fr'
-#Deskpath='/mnt/d/OneDrive - etu.sorbonne-universite.fr'
+#DeskpathWSL='/mnt/d/OneDrive - etu.sorbonne-universite.fr'
 Surfath='/mnt/c/Users/Laurent/OneDrive'
-Deskpath='/mnt/d/OneDrive'
+DeskpathWSL='/mnt/d/OneDrive'
+DeskpathLinux='/media/Data/OneDrive'
 PPTI_HOME='/users/Etu8/2767308'
 AsusGaming=$HOME'/OneDrive'
 
@@ -132,7 +133,8 @@ PPTIAlias() {
 
 # =[ MAIN () ]======================================================================================
 # Test des différents chemins possibles,propres aux diff. devices,pour déterminer quels alias charger
-[[ -d $Deskpath ]] && OneDrive=$Deskpath && OneDriveAlias   # Si on est sur le PC-WSL2
-[[ -d $Surfath ]] && OneDrive=$Surfath && OneDriveAlias     # Si on est sur la Surface-WSL2
-[[ -d $AsusGaming ]] && OneDrive=$AsusGaming && OneDriveAlias  # Si on est sur le PC-Asus-Ubuntu
-[[ -d $PPTI_HOME ]] && PPTIAlias || SSH-Alias               # Si on est sur un PC de la PPTI
+[[ -d $DeskpathWSL ]] && OneDrive=$DeskpathWSL && OneDriveAlias       # Si on est sur le PC-WSL2
+[[ -d $DeskpathLinux ]] && OneDrive=$DeskpathLinux && OneDriveAlias   # Si on est sur le PC-LINUX
+[[ -d $Surfath ]] && OneDrive=$Surfath && OneDriveAlias               # Si on est sur la Surface-WSL2
+[[ -d $AsusGaming ]] && OneDrive=$AsusGaming && OneDriveAlias         # Si on est sur le PC-Asus-Ubuntu
+[[ -d $PPTI_HOME ]] && PPTIAlias || SSH-Alias                         # Si on est sur un PC de la PPTI
