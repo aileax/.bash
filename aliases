@@ -67,7 +67,7 @@ alias graph='check_git && git log --graph --branches --oneline || echo "Vous dev
 #DeskpathWSL='/mnt/d/OneDrive - etu.sorbonne-universite.fr'
 Surfath='/mnt/c/Users/Laurent/OneDrive'
 DeskpathWSL='/mnt/d/OneDrive'
-DeskpathLinux='/media/Data/OneDrive'
+DeskpathLinux='/mnt/OneDrive'
 PPTI_HOME='/users/Etu8/2767308'
 AsusGaming=$HOME'/OneDrive'
 
