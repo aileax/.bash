@@ -1,7 +1,9 @@
 #!/bin/bash
 
 # ce pour CompileExecute : permet de compiler puis d'éxécuter un fichier passé en argument
-# Pour l'instant ne prend en compte que les "*.java" et "*.c"
+#  - C       : Compile & Execute les scripts.c
+#  - Java    : Compile & Execute les scripts.java
+#  - Python  : Execute les scripts.py
 
 # ERROR-20: Le nom de fichier ne correspond à aucune extension connues
 # ERROR-21: aide affiché car demandée
@@ -16,6 +18,7 @@ dossier=$(echo $0 | rev | cut -d "/" -f2- | rev)    # Récupère l'emplacement d
 fichier=$1
 
 # =[ FONCTIONS ]====================================================================================
+# -[ USAGE ]----------------------------------------------------------------------------------------
 # Affiche l'aide et l'usage de la commande check_ssh
 function usage(){
     echo "La fonction ${nom} se trouve dans ${dossier}"
@@ -25,6 +28,7 @@ function usage(){
     echo -e "- Les extensions actuellemnt prises en charge sont:\n    - '*.java'\n    - '*.c'"
 }
  
+# -[ JAVA ]-----------------------------------------------------------------------------------------
 # Compile puis execute le fichier java passé en argument s'il existe, sinon quitte
 function doJava(){
     if [[ -f ${1} ]];then
@@ -36,6 +40,7 @@ function doJava(){
     return 0
 }
 
+# -[ C ]--------------------------------------------------------------------------------------------
 # Compile puis execute le fichier c passé en argument s'il existe, sinon retourn code 24
 function doC(){
     if [[ -f ${1} ]];then
@@ -47,6 +52,7 @@ function doC(){
     return 0
 }
 
+# -[ PYTHON ]---------------------------------------------------------------------------------------
 # Execute le script python passé en argument s'il existe, sinon quitte
 function doPython(){
     if [[ -f ${1} ]];then
@@ -58,6 +64,7 @@ function doPython(){
     return 0
 }
 
+# -[ INCONNU ]--------------------------------------------------------------------------------------
 # Retourne une phrase si extension differente de celles connues puis quitte en produisant code 20
 function inconnu(){
     echo "Le fichier passé en argument ne correspond pas à une extension prise en charge par ${nom}"
