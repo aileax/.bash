@@ -61,6 +61,9 @@ alias kbd="sudo /etc/init.d/xrdp stop"
 # -[ GIT_ALIASES ]----------------------------------------------------------------------------------
 alias graph='check_git && git log --graph --branches --oneline || echo "Vous devez-être dans un git-repo pour utiliser cet alias..."'
 
+# Alias en liens avec checkio
+[[ -f ${HOME}/.local/bin/checkio ]] && alias cio="checkio"
+
 # =[ VARIABLES ]====================================================================================
 # Variables permettant d'identifier la machine sur lequelle on se trouve :)
 #Surfath='/mnt/c/Users/Laurent/OneDrive - etu.sorbonne-universite.fr'
