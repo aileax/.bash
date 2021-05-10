@@ -61,15 +61,6 @@ alias kbd="sudo /etc/init.d/xrdp stop"
 # -[ GIT_ALIASES ]----------------------------------------------------------------------------------
 alias graph='check_git && git log --graph --branches --oneline || echo "Vous devez-être dans un git-repo pour utiliser cet alias..."'
 
-# =[ VARIABLES ]====================================================================================
-# Variables permettant d'identifier la machine sur lequelle on se trouve :)
-#Surfath='/mnt/c/Users/Laurent/OneDrive - etu.sorbonne-universite.fr'
-#DeskpathWSL='/mnt/d/OneDrive - etu.sorbonne-universite.fr'
-Surfath='/mnt/c/Users/Laurent/OneDrive'
-DeskpathWSL='/mnt/d/OneDrive'
-PPTI_HOME='/users/Etu8/2767308'
-Linux=$HOME'/OneDrive'
-
 # =[ FONCTIONS ]====================================================================================
 # Ensemble de fct qui, quand appelées, permettent de charger les aliases qu'elles contiennent.
 # Ainsi, en les appelants conditionnellement, cela permet d'avoir un aliasing spécifique au device.
@@ -87,41 +78,41 @@ SSH-Alias() {
 # -[ ONEDRIVEALIAS ]--------------------------------------------------------------------------------
 # Fct permettant de créer les alias spécifiques aux ordis persos
 OneDriveAlias() {
-    alias doc='cd "$OneDrive"/Documents/ && ls -a'
-    alias fac='cd "$OneDrive"/FAC/ && ls -a'
-    alias lab='cd "$OneDrive"/LABO/ && ls -a'
-    alias labC='cd "$OneDrive"/LABO/C && ls -a'
-    alias labP='cd "$OneDrive"/LABO/PYTHON && ls -a'
-    alias labB='cd "$OneDrive"/LABO/BASH && ls -a'
-    alias labJ='cd "$OneDrive"/LABO/JAVA && ls -a'
-    alias labO='cd "$OneDrive"/LABO/OCAML && ls -a'
-    alias wiki='cd "$OneDrive"/Wiki/ && ls -a'
+    alias doc='cd "${OneDrive}"/Documents/ && ls -a'
+    alias fac='cd "${OneDrive}"/FAC/ && ls -a'
+    alias lab='cd "${OneDrive}"/LABO/ && ls -a'
+    alias labC='cd "${OneDrive}"/LABO/C && ls -a'
+    alias labP='cd "${OneDrive}"/LABO/PYTHON && ls -a'
+    alias labB='cd "${OneDrive}"/LABO/BASH && ls -a'
+    alias labJ='cd "${OneDrive}"/LABO/JAVA && ls -a'
+    alias labO='cd "${OneDrive}"/LABO/OCAML && ls -a'
+    alias wiki='cd "${OneDrive}"/Wiki/ && ls -a'
     # LABO
-    alias lab='cd "$OneDrive"/LABO/ && ls -a'
-    alias labb='cd "$OneDrive"/LABO/BASH/ && ls -a'
-    alias labc='cd "$OneDrive"/LABO/C/ && ls -a'
-    alias labj='cd "$OneDrive"/LABO/JAVA/ && ls -a'
-    alias labo='cd "$OneDrive"/LABO/OCAML/ && ls -a'
-    alias labp='cd "$OneDrive"/LABO/PYTHON/ && ls -a'
+    alias lab='cd "${OneDrive}"/LABO/ && ls -a'
+    alias labb='cd "${OneDrive}"/LABO/BASH/ && ls -a'
+    alias labc='cd "${OneDrive}"/LABO/C/ && ls -a'
+    alias labj='cd "${OneDrive}"/LABO/JAVA/ && ls -a'
+    alias labo='cd "${OneDrive}"/LABO/OCAML/ && ls -a'
+    alias labp='cd "${OneDrive}"/LABO/PYTHON/ && ls -a'
     # Semestre3
-    alias 002='cd "$OneDrive"/FAC/S3/002/ && ls -a'
-    alias 005='cd "$OneDrive"/FAC/S3/005/ && ls -a'
-    alias 011='cd "$OneDrive"/FAC/S3/011/ && ls -a'
-    alias 018='cd "$OneDrive"/FAC/S3/018/ && ls -a'
-    alias 019='cd "$OneDrive"/FAC/S3/019/ && ls -a'
-    alias 020='cd "$OneDrive"/FAC/S3/020/ && ls -a'
+    alias 002='cd "${OneDrive}"/FAC/S3/002/ && ls -a'
+    alias 005='cd "${OneDrive}"/FAC/S3/005/ && ls -a'
+    alias 011='cd "${OneDrive}"/FAC/S3/011/ && ls -a'
+    alias 018='cd "${OneDrive}"/FAC/S3/018/ && ls -a'
+    alias 019='cd "${OneDrive}"/FAC/S3/019/ && ls -a'
+    alias 020='cd "${OneDrive}"/FAC/S3/020/ && ls -a'
     # Semestre4
-    alias 003='cd "$OneDrive"/FAC/S4/002/ && ls -a'
-    alias 006='cd "$OneDrive"/FAC/S4/006/ && ls -a'
-    alias 009='cd "$OneDrive"/FAC/S4/009/ && ls -a'
-    alias 013='cd "$OneDrive"/FAC/S4/013/ && ls -a'
-    alias 024='cd "$OneDrive"/FAC/S4/024/ && ls -a'
+    alias 003='cd "${OneDrive}"/FAC/S4/002/ && ls -a'
+    alias 006='cd "${OneDrive}"/FAC/S4/006/ && ls -a'
+    alias 009='cd "${OneDrive}"/FAC/S4/009/ && ls -a'
+    alias 013='cd "${OneDrive}"/FAC/S4/013/ && ls -a'
+    alias 024='cd "${OneDrive}"/FAC/S4/024/ && ls -a'
 }
 
 # -[ PPTIALIAS ]------------------------------------------------------------------------------------
 # Fct permettant de créer les alias spécidique aux ordis de la ppti
 PPTIAlias() {
-    alias wiki='cd "$OneDrive"/Wiki/ && ls -a'
+    alias wiki='cd "${OneDrive}"/Wiki/ && ls -a'
     alias 002='cd "$PPTI_HOME"/S3/002/ && ls -a'
     alias 005='cd "$PPTI_HOME"/S3/005/ && ls -a'
     alias 011='cd "$PPTI_HOME"/S3/011/ && ls -a'
@@ -132,10 +123,8 @@ PPTIAlias() {
 
 # =[ MAIN () ]======================================================================================
 # Test des différents chemins possibles,propres aux diff. devices,pour déterminer quels alias charger
-[[ -d $DeskpathWSL ]] && OneDrive=$DeskpathWSL && OneDriveAlias       # Si on est sur le PC-WSL2
-[[ -d $Surfath ]] && OneDrive=$Surfath && OneDriveAlias               # Si on est sur la Surface-WSL2
-[[ -d $Linux ]] && OneDrive=$Linux && OneDriveAlias                   # Si on est sous une distro-Linux
-[[ -d $PPTI_HOME ]] && PPTIAlias || SSH-Alias                         # Si on est sur un PC de la PPTI
+[[ ! -z ${OneDrive} ]] && OneDriveAlias            # Si VAR-ENV:OneDrive n'est pas vide, charger ses aliases
+[[ -d ${PPTI_HOME} ]] && PPTIAlias || SSH-Alias    # Si on est sur un PC de la PPTI
 
 # Alias en liens avec checkio
 [[ -f ${HOME}/.local/bin/checkio ]] && alias cio="checkio" && CHECKIO="${OneDrive}/LABO/PYTHON/checkio/"

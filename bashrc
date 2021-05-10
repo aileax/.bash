@@ -24,10 +24,10 @@ function shell_non_log(){
     export BASH_DIR="${HOME}/.bash"
     export HISTFILE="${BASH_DIR}/history"
     [[ -d ${BASH_DIR} ]] && . ${BASH_DIR}/aliases 
-    [[ -d $BASH_DIR/bin ]] && export PATH="$BASH_DIR/bin:$PATH"
-    [[ -d $HOME/.local/bin ]] && export PATH="$HOME/.local/bin:$PATH"
-    [[ -d $HOME/usr/bin ]] && export PATH="$HOME/usr/bin:$PATH"
-    [[ -d $HOME/bin ]] && export PATH="$HOME/bin:$PATH"
+    [[ -d ${BASH_DIR}/bin ]] && export PATH="$BASH_DIR/bin:$PATH"
+    [[ -d ${HOME}/.local/bin ]] && export PATH="$HOME/.local/bin:$PATH"
+    [[ -d ${HOME}/usr/bin ]] && export PATH="$HOME/usr/bin:$PATH"
+    [[ -d ${HOME}/bin ]] && export PATH="$HOME/bin:$PATH"
     # Partie mimant logout->bash_logout
     #alias :q="ask_to_kill_agent && exit"   # Décommenter une fois la fct créer  
     #alias exit="ask_to_kill_agent && exit" # Décommenter une fois la fct créer 
