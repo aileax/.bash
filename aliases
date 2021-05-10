@@ -127,5 +127,5 @@ PPTIAlias() {
 [[ -d ${PPTI_HOME} ]] && PPTIAlias || SSH-Alias    # Si on est sur un PC de la PPTI
 
 # Alias en liens avec checkio
-[[ -f ${HOME}/.local/bin/checkio ]] && alias cio="checkio" && CHECKIO="${OneDrive}/LABO/PYTHON/checkio/"
+[[ -f ${HOME}/.local/bin/checkio ]] && alias cio="checkio" 
 

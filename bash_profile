@@ -18,8 +18,9 @@ Linux=$HOME'/OneDrive'
 [[ -d ${Linux} ]] && export OneDrive=${Linux}             # Si on est sous une distro-Linux
 
 # =[ VAR-ENV ]==========================================================================================================
-export BASH_DIR="${HOME}/.bash"       # Chemin par défaut du dossier contenant les BDF.
-export HISTFILE="${BASH_DIR}/history" # Déplace le fichier d'historique de bash dans le BASH_DIR
+export BASH_DIR="${HOME}/.bash"                   # Chemin par défaut du dossier contenant les BDF.
+export HISTFILE="${BASH_DIR}/history"             # Déplace le fichier d'historique de bash dans le BASH_DIR
+export CHECKIO="${OneDrive}/LABO/PYTHON/checkio"  # Affecte a CHECKIO l'emplacement de son dossier sur cette machine
 
 # =[ SOURCE ]===========================================================================================================
 # Sources les fichiers bashrc et bash_aliases en les :
