@@ -1,0 +1,39 @@
+#!/bin/bash
+
+# Petit programme vérifiant si l'emplacement actuel de l'utilisateur se trouve bien dans
+# l'arborescence du chemin passé en argument
+
+# =[ VARIABLES ]====================================================================================
+nom=$(echo $0 | rev | cut -d "/" -f1 | rev)      # Récupère le nom de la commande
+dossier=$(echo $0 | rev | cut -d "/" -f2- | rev) # Récupère l'emplacement de la commande
+actualPath=$(pwd)                                # Récupère l'emplacement actuel
+argPath=$1
+
+# =[ FONCTIONS ]====================================================================================
+usage(){
+    echo -e "${nom} localisée dans $0"
+    echo "Fonctionnelle permettant de savoir si l'on se trouve dans l'arborescence passée en paramètre"
+    echo -e "\nUsage : \`$: ${nom} [-h] <chemin_à_tester>\`\n"
+}
+
+is_in_arbo(){
+    [[ ${argPath} =~ ${CHECKIO}* ]] && return 0 || return 1
+}
+
+are_we_in_arbo(){
+    [[ ${actualPath} =~ ${CHECKIO}* ]] && return 0 || return 1
+}
+
+# -[ MAIN() ]---------------------------------------------------------------------------------------
+## i) Trop d'argument : affiche l'usage
+[[ $# -gt 1 ]] && usage && exit 11
+## ii) 0 ou 1 argument : différents cas rencontrés:
+if [[ $# -eq 0 ]];then
+    are_we_in_arbo
+else
+    [[ ! -d ${argPath} ]] && echo "Le dossier passé en paramètre n'existe pas" && exit 2
+    case "${argPath}" in
+        "-h"|"--help") usage && exit 12 ;;
+        * ) is_in_arbo && exit 0 || exit 1;;
+    esac
+fi
