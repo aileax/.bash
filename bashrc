@@ -21,7 +21,7 @@ COLOR_RESET="\033[0m"
 # Lorsque l'on se trouve dans un shell non logué, mime le foncitonnement de bash_login et logout
 function shell_non_log(){
     # Partie mimant login->bash_profile
-    export BASH_DIR="${HOME}/.bash"
+    export BASH_DIR="${HOME}/.config/bash"
     export HISTFILE="${BASH_DIR}/history"
     [[ -d ${BASH_DIR} ]] && . ${BASH_DIR}/aliases 
     [[ -d ${BASH_DIR}/bin ]] && export PATH="$BASH_DIR/bin:$PATH"
