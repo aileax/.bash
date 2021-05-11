@@ -1,0 +1,103 @@
+#!/bin/bash
+
+# Petit script bash permettant : (tres specfique)
+#   - Si WSL && chrome installé sous Windows
+#   - Si LINUX system && chrome installé
+
+# D'ouvrir dans le navigateur web chrome les pages (au choix du l'utilisateur):
+#   - 1 : Page pour publication de la solution : PUBLICATION
+#   - 2 : Page pour visualiser les autres solution : REVIEW
+#   - 3 : Pages pour publication et visualisation : PUBLICATION & REVIEW
+
+# Error 10  : Chrome.exe pas trouvé
+# Error 22  : trop d'argument passé a la commande
+# Error 123 : Chrome pas installé
+
+# =[ VARIABLES ]====================================================================================
+nom=$(echo $0 | rev | cut -d "/" -f1 | rev)         # Récupère le nom de la commande
+dossier=$(echo $0 | rev | cut -d "/" -f2- | rev)    # Récupère l'emplacement de la commande
+arg=$1
+[[ $(grep -qEi "(Microsoft)|WSL" /proc/version &> /dev/null) -eq 0 ]] && wsl=0 || wsl=1
+
+# =[ RECUPERATION CONDITIONNELLE DE CHROME.EXE ]====================================================
+
+# -[ VARIABLES ]------------------------------------------------------------------------------------
+chrome=""
+locSurf="/mnt/c/Program Files (x86)/Google/Chrome/Application/chrome.exe" 
+
+# -[ AFFECTATIONS  ]--------------------------------------------------------------------------------
+# Cas wsl
+[[ ${wsl} == 0 ]] && [[ -f ${locSurf} ]] && chrome="$(echo $locSurf | sed 's/\([ ()]\)/\\\1/g')"
+[[ ${wsl} == 1 ]] && [[ -f ${locSurf} ]] && chrome="google-chrome"
+
+# =[ FONCTIONS ]====================================================================================
+# -[ USAGE ]----------------------------------------------------------------------------------------
+usage(){
+    echo -e "${nom} localisée dans $0"
+    echo "Fonctionnelle permettant de savoir si l'on se trouve dans un WSL ou dans un 'vrai' linux"
+    echo -e "\nUsage : \`$: ${nom} [-h]\` \n"
+}
+
+# -[ IS_CONFIG_OK ]---------------------------------------------------------------------------------
+is_config_ok(){
+    # Fonctionnelle verifiant que chrome est installé peu importe le device
+    # CAS WSL 
+    [[ ${wsl} == 0 ]] && [[ -z ${chrome} ]] && echo "Chrome pas trouvé" && exit 10
+    # CAS LINUX
+    [[ ${wsl} == 1 ]] && [[ $(google-chrome --version &> /dev/null) != 0 ]] && echo "404 CHROME NOT FOUND" && exit 123
+    return 0
+}
+
+# -[ USEQUIT ]--------------------------------------------------------------------------------------
+useQuit(){
+    usage
+    exit 101
+}
+
+# -[ ASKUSER ]--------------------------------------------------------------------------------------
+askUser(){
+    arg1=${arg//_/-}
+    nomMission=${arg1//.py/}
+    urlPub="https://py.checkio.org/mission/${nomMission}/publications"
+    urlSol="https://py.checkio.org/mission/${nomMission}/publications/add"
+    read -p "Souhaitez vous:`echo $'\n'`
+    -0) Annuler
+    -1) Publier votre solution`echo $'\n'`
+    -2) Avoir acces aux autres reponses`echo $'\n'`
+    -3) les Deux`echo $'\n'`
+    " rep
+
+    case $rep in
+        0) 
+            #echo "Annulation"
+            exit 1 
+            ;;
+        1) 
+            echo "${chrome} ${urlPub}"
+            eval ${chrome} ${urlPub}
+            exit 0 
+            ;;
+        2) 
+            echo "${chrome} ${urlSol}"
+            eval ${chrome} ${urlSol}
+            exit 0 
+            ;;
+        3) 
+            echo "${chrome} ${urlPub} ${urlSol} "
+            eval ${chrome} ${urlPub} ${urlSol}
+            exit 0 
+            ;;
+        *) 
+            askUser
+            ;;
+    esac
+}
+ 
+# ==================================================================================================
+# MAIN
+# ==================================================================================================
+## i) Trop d'argument : affiche l'usage
+[[ $# -ne 1 ]] && usage && exit 22
+
+# ii) Fonctionnement normal
+is_config_ok && askUser || useQuit

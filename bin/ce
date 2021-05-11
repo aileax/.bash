@@ -3,7 +3,10 @@
 # ce pour CompileExecute : permet de compiler puis d'éxécuter un fichier passé en argument
 #  - C       : Compile & Execute les scripts.c
 #  - Java    : Compile & Execute les scripts.java
-#  - Python  : Execute les scripts.py
+#  - Python  : Execute dans interpreteur python3 les programmes passés en paramètre
+#  - checkio : Execute les scripts checkio, si ok check online et si ok lance dans navigateur pour
+#                - choix 1 : Page Web pour Partage
+#                - choix 2 : Page Web pour Solutions
 
 # ERROR-20: Le nom de fichier ne correspond à aucune extension connues
 # ERROR-21: aide affiché car demandée
@@ -56,7 +59,13 @@ function doC(){
 # Execute le script python passé en argument s'il existe, sinon quitte
 function doPython(){
     if [[ -f ${1} ]];then
-        python3 ${1}
+        firstLine=$(head -1 ${1})
+        cioShebang="#!${HOME}/.local/bin/checkio --domain=py run"
+        if is_in_arbo && [[ -f ${HOME}/.local/bin/checkio ]] && [[ ${firstLine} =~ ${cioShebang}* ]];then
+            python3 ${1} && [[ $(./${1} --check &> /dev/null) -eq 0 ]] && echo "CONGRATULATION!!!" && checkioWeb ${1}
+        else
+            python3 ${1}
+        fi
     else
         echo "Il n'y a pas de script python : ${1} présent dans le répertoire actuel"
         return 25

@@ -52,6 +52,9 @@ alias javadoc="javadoc -d doc"
 alias bd="sudo /etc/init.d/xrdp start"
 alias kbd="sudo /etc/init.d/xrdp stop"
 
+# -[ CHROME ]---------------------------------------------------------------------------------------
+alias chrome="google-chrome"
+
 # ==================================================================================================
 # ALIAS-CONDITIONNELS
 # ==================================================================================================
@@ -110,21 +113,30 @@ OneDriveAlias() {
 }
 
 # -[ PPTIALIAS ]------------------------------------------------------------------------------------
-# Fct permettant de créer les alias spécidique aux ordis de la ppti
+# Fct permettant de créer les alias spécifique aux ordis de la ppti
 PPTIAlias() {
     alias wiki='cd "${OneDrive}"/Wiki/ && ls -a'
-    alias 002='cd "$PPTI_HOME"/S3/002/ && ls -a'
-    alias 005='cd "$PPTI_HOME"/S3/005/ && ls -a'
-    alias 011='cd "$PPTI_HOME"/S3/011/ && ls -a'
-    alias 018='cd "$PPTI_HOME"/S3/018/ && ls -a'
-    alias 019='cd "$PPTI_HOME"/S3/019/ && ls -a'
-    alias 020='cd "$PPTI_HOME"/S3/020/ && ls -a'
+    alias 002='cd "${PPTI_HOME}"/S3/002/ && ls -a'
+    alias 005='cd "${PPTI_HOME}"/S3/005/ && ls -a'
+    alias 011='cd "${PPTI_HOME}"/S3/011/ && ls -a'
+    alias 018='cd "${PPTI_HOME}"/S3/018/ && ls -a'
+    alias 019='cd "${PPTI_HOME}"/S3/019/ && ls -a'
+    alias 020='cd "${PPTI_HOME}"/S3/020/ && ls -a'
+}
+
+# -[ WSL ]------------------------------------------------------------------------------------------
+# Fct permettant de créer les alias spécifique a Windows Subsystems for Linux
+WSLAlias() {
+    loc1="/mnt/c/Program Files (x86)/Google/Chrome/Application/chrome.exe" 
+    [[ -f ${loc1} ]] && alias chrome="$(echo $loc1 | sed 's/\([ ()]\)/\\\1/g')"
 }
 
 # =[ MAIN () ]======================================================================================
 # Test des différents chemins possibles,propres aux diff. devices,pour déterminer quels alias charger
 [[ ! -z ${OneDrive} ]] && OneDriveAlias            # Si VAR-ENV:OneDrive n'est pas vide, charger ses aliases
 [[ -d ${PPTI_HOME} ]] && PPTIAlias || SSH-Alias    # Si on est sur un PC de la PPTI
+
+[[ ! -z $WSL_DISTRO_NAME ]] && WSLAlias
 
 # Alias en liens avec checkio
 [[ -f ${HOME}/.local/bin/checkio ]] && alias cio="checkio" 
