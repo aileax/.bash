@@ -17,7 +17,8 @@
 nom=$(echo $0 | rev | cut -d "/" -f1 | rev)         # Récupère le nom de la commande
 dossier=$(echo $0 | rev | cut -d "/" -f2- | rev)    # Récupère l'emplacement de la commande
 arg=$1
-[[ $(grep -qEi "(Microsoft)|WSL" /proc/version &> /dev/null) -eq 0 ]] && wsl=0 || wsl=1
+#[[ $(grep -qEi "(Microsoft)|WSL" /proc/version &> /dev/null) -eq 0 ]] && wsl=0 || wsl=1
+[[ $(is_it_wsl) -eq 0 ]]&& wsl=0 || wsl=1
 
 # =[ RECUPERATION CONDITIONNELLE DE CHROME.EXE ]====================================================
 
