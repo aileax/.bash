@@ -13,7 +13,7 @@
 BackFold="$HOME/.backupfiles"             # Dossier contenant les Backup Folders
 OriginFolder=$(ls -d ${BackFold}/*/ | grep -E "*bash.{11}/$" | sort | head -n 1)
 #OriginFolder="${BackFold}/<non_dossier>/ # Décommenter si déclaration manuelle(commenter ci-dessus)
-Bash_DotFiles=("bash_profile" "bashrc" "bash_logout" "aliases")
+Bash_DotFiles=("bash_profile" "bashrc" "bash_logout" "aliases" "profile")
 Prefix=$(date +%F)
 # Déclaration conditionnelle de la variable du dossier dans lequel chercher les BDF
 [[ -d ${BASH_DIR} ]] && Folder="${BASH_DIR}" || Folder=${0//${0##*/}/}
