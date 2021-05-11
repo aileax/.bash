@@ -9,7 +9,7 @@
 # =[ VARIABLES ]========================================================================================================
 Surfath='/mnt/c/Users/Laurent/OneDrive'
 DeskpathWSL='/mnt/d/OneDrive'
-Linux=$HOME'/OneDrive'
+Linux="${HOME}/OneDrive"
 
 # =[ ONEDRIVE ]=========================================================================================================
 # Partie determinant quelle valeur pour VAR-ENV-HOMEMADE:OneDrive
