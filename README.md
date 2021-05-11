@@ -53,10 +53,15 @@ Ce dossier regroupant l'ensemble de mes configurations personnelles du shell bas
     - `bash.sh` : script d'installation des **BDF**
     - `restore_bash.sh` : script permettant de remettre à l'état initial (avant installation) l'ensemble des **BDF**
 - une collection de **shell-function** (dossier `${BASH_DIR}/bin/`):
-    - `coucou` : créé pour apprendre à déclarer des fcts...inutile...
-    - `nbr_agent-ssh` : Retourne le nombre d'agent ssh actif (methode:parcours `procfs`)
+    - `ce` : Compile et Execute codes-source/scripts pour les langages: [C,Python,PythonCheckio,Java,bash]
     - `check_git` : vérifie qu'un dossier est bien dans l'arborescence d'un dépôt git local
+    - `checkioWeb`: Vérifie le code passé en arg. sur checkio puis propose l'ouverture dans navigateur s'il est ok
+    - `coucou` : créé pour apprendre à déclarer des fcts...inutile...
+    - `is_in_arbo` : Vérifie si on se trouve bien dans
+    - `is_it_wls` : Vérifie si on se trouve sous Windows Sub-Systems for Linux
+    - `nbr_agent-ssh` : Retourne le nombre d'agent ssh actif (methode:parcours `procfs`)
     - `ppticopy` : permet de copier des documents se trouvant sur la ppti vers mes appareils personnels
+    - `swap` : Swapper des touches CAPSLOCK et ESCAPE
 
 ## 1.1 - Les fichiers : Bash\_DotFiles
 ### RAPPELS : Fonctionnement et Ordre de chargement des BDF
