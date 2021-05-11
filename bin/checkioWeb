@@ -17,8 +17,7 @@
 nom=$(echo $0 | rev | cut -d "/" -f1 | rev)         # Récupère le nom de la commande
 dossier=$(echo $0 | rev | cut -d "/" -f2- | rev)    # Récupère l'emplacement de la commande
 arg=$1
-#[[ $(grep -qEi "(Microsoft)|WSL" /proc/version &> /dev/null) -eq 0 ]] && wsl=0 || wsl=1
-[[ $(is_it_wsl) -eq 0 ]]&& wsl=0 || wsl=1
+$(grep -qEi "(Microsoft)|WSL" /proc/version &> /dev/null) && wsl=0 || wsl=1
 
 # =[ RECUPERATION CONDITIONNELLE DE CHROME.EXE ]====================================================
 
@@ -29,7 +28,7 @@ locSurf="/mnt/c/Program Files (x86)/Google/Chrome/Application/chrome.exe"
 # -[ AFFECTATIONS  ]--------------------------------------------------------------------------------
 # Cas wsl
 [[ ${wsl} == 0 ]] && [[ -f ${locSurf} ]] && chrome="$(echo $locSurf | sed 's/\([ ()]\)/\\\1/g')"
-[[ ${wsl} == 1 ]] && [[ -f ${locSurf} ]] && chrome="google-chrome"
+[[ ${wsl} == 1 ]] && chrome="google-chrome"
 
 # =[ FONCTIONS ]====================================================================================
 # -[ USAGE ]----------------------------------------------------------------------------------------
@@ -44,8 +43,10 @@ is_config_ok(){
     # Fonctionnelle verifiant que chrome est installé peu importe le device
     # CAS WSL 
     [[ ${wsl} == 0 ]] && [[ -z ${chrome} ]] && echo "Chrome pas trouvé" && exit 10
-    # CAS LINUX
-    [[ ${wsl} == 1 ]] && [[ $(google-chrome --version &> /dev/null) != 0 ]] && echo "404 CHROME NOT FOUND" && exit 123
+    # CAS LINUX : check if google-chrome installé
+    if [[ ${wsl} == 1 ]];then
+        $(${chrome} --version &> /dev/null) && echo "google-chrome installé" || echo "404 CHROME NOT FOUND"; exit 123
+    fi
     return 0
 }
 
@@ -74,17 +75,14 @@ askUser(){
             exit 1 
             ;;
         1) 
-            echo "${chrome} ${urlPub}"
             eval ${chrome} ${urlPub}
             exit 0 
             ;;
         2) 
-            echo "${chrome} ${urlSol}"
             eval ${chrome} ${urlSol}
             exit 0 
             ;;
         3) 
-            echo "${chrome} ${urlPub} ${urlSol} "
             eval ${chrome} ${urlPub} ${urlSol}
             exit 0 
             ;;
