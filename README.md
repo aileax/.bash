@@ -13,7 +13,7 @@ Ainsi $BASH\_DIR=`$HOME/.bash`, et pour installer, de manière standart, les mod
 * 3 - Sourcer `bash_profile` pour rendre les changements effectifs dans le shell courant:
 
 ```bash
-$ cd && git clone https://github.com/alterGNU/.bash.git && ./.bash/install.sh && source .bash/bash_profile
+cd && git clone https://github.com/alterGNU/.bash.git && ./.bash/install.sh && source .bash/bash_profile
 ```
 
 ## Installation personnalisée : 
@@ -24,7 +24,7 @@ Example avec :
 - nom-dossier=**bash**
 
 ```bash
-$ git clone https://github.com/alterGNU/.bash.git ~/.config/bash && ~/.config/bash/install.sh && . ~/.config/bash/bash_profile
+git clone https://github.com/alterGNU/.bash.git ~/.config/bash && ~/.config/bash/install.sh && . ~/.config/bash/bash_profile
 ```
 _Remarque : Cela est possible car à l'installation `install.sh` modifie si besoin la valeur $BASH_DIR dans
 `bash_profile` ainsi que dans `bashrc` et ce en fonction du nom et de l'emplacement choisi par l'utilisateur.Ainsi cette
@@ -37,7 +37,7 @@ Pour réstaurer la configuration initiale de bash (datant d'avant l'utilisation 
 Ainsi pour revenir à la configuration de bash précédente lancer ce script, ou tapez dans un terminal la commande :
 
 ```bash
-$ restore_bash
+restore_bash
 ```
 _Alias lançant le script `restore\_bash.sh` suivi de cmd de sourçants les BDT initiaux pour appliquer leurs
 configurations dans le shell courant. Cet alias est définit uniquement aprés installation via l'éxécution du script
