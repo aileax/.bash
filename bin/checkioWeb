@@ -45,7 +45,7 @@ is_config_ok(){
     [[ ${wsl} == 0 ]] && [[ -z ${chrome} ]] && echo "Chrome pas trouvé" && exit 10
     # CAS LINUX : check if google-chrome installé
     if [[ ${wsl} == 1 ]];then
-        $(${chrome} --version &> /dev/null) && echo "google-chrome installé" || echo "404 CHROME NOT FOUND"; exit 123
+        $(${chrome} --version &> /dev/null) && return 0 || echo "404 CHROME NOT FOUND"; exit 123
     fi
     return 0
 }
