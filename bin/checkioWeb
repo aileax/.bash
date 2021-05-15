@@ -60,7 +60,7 @@ useQuit(){
 askUser(){
     arg1=${arg//_/-}
     nomMission=${arg1//.py/}
-    urlPub="https://py.checkio.org/mission/${nomMission}/publications/add"
+    urlPub="https://py.checkio.org/mission/${nomMission}/solve"
     urlSol="https://py.checkio.org/mission/${nomMission}/publications"
     read -p "Souhaitez vous:`echo $'\n'`
     -0) Annuler
