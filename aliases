@@ -100,7 +100,7 @@ OneDriveAlias() {
     # Semestre3
     alias 002='cd "${OneDrive}"/FAC/S3/002/ && ls -a'
     alias 005='cd "${OneDrive}"/FAC/S3/005/ && ls -a'
-    alias 011='cd "${OneDrive}"/FAC/S3/011/ && ls -a'
+    alias 021='cd "${OneDrive}"/FAC/S3/021/ && ls -a'
     alias 018='cd "${OneDrive}"/FAC/S3/018/ && ls -a'
     alias 019='cd "${OneDrive}"/FAC/S3/019/ && ls -a'
     alias 020='cd "${OneDrive}"/FAC/S3/020/ && ls -a'
@@ -118,9 +118,10 @@ PPTIAlias() {
     alias wiki='cd "${OneDrive}"/Wiki/ && ls -a'
     alias 002='cd "${PPTI_HOME}"/S3/002/ && ls -a'
     alias 005='cd "${PPTI_HOME}"/S3/005/ && ls -a'
-    alias 011='cd "${PPTI_HOME}"/S3/011/ && ls -a'
+    alias 021='cd "${PPTI_HOME}"/S3/021/ && ls -a'
     alias 018='cd "${PPTI_HOME}"/S3/018/ && ls -a'
     alias 019='cd "${PPTI_HOME}"/S3/019/ && ls -a'
+    alias 021='cd "${PPTI_HOME}"/S3/021/ && ls -a'
     alias 020='cd "${PPTI_HOME}"/S3/020/ && ls -a'
 }
 
