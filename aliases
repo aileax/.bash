@@ -73,7 +73,7 @@ alias graph='check_git && git log --graph --branches --oneline || echo "Vous dev
 # Alias en liens avec connection SSH (inutile en PPTI)
 SSH-Alias() {
     alias passerelle="ssh 2767308@ssh.ufr-info-p6.jussieu.fr"
-    alias ppti="ssh ppti-14-501-06"
+    alias ppti="ssh ppti-14-301-03"
     alias agent="nbr_agent-ssh && eval \$(ssh-agent -s) && ssh-add ~/.ssh/gitpro || nbr_agent-ssh -v"
     alias kagent="eval \$(ssh-agent -k)"
 }
