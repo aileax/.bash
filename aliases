@@ -73,7 +73,7 @@ alias graph='check_git && git log --graph --branches --oneline || echo "Vous dev
 # Alias en liens avec connection SSH (inutile en PPTI)
 SSH-Alias() {
     alias passerelle="ssh 2767308@ssh.ufr-info-p6.jussieu.fr"
-    alias ppti="ssh ppti-14-401-05"
+    alias ppti="ssh ppti-14-301-03"
     alias agent="nbr_agent-ssh && eval \$(ssh-agent -s) && ssh-add ~/.ssh/gitpro || nbr_agent-ssh -v"
     alias kagent="eval \$(ssh-agent -k)"
 }
@@ -100,10 +100,10 @@ OneDriveAlias() {
     # Semestre3
     alias 002='cd "${OneDrive}"/FAC/S3/002/ && ls -a'
     alias 005='cd "${OneDrive}"/FAC/S3/005/ && ls -a'
-    alias 011='cd "${OneDrive}"/FAC/S3/011/ && ls -a'
     alias 018='cd "${OneDrive}"/FAC/S3/018/ && ls -a'
     alias 019='cd "${OneDrive}"/FAC/S3/019/ && ls -a'
     alias 020='cd "${OneDrive}"/FAC/S3/020/ && ls -a'
+    alias 021='cd "${OneDrive}"/FAC/S3/021/ && ls -a'
     # Semestre4
     alias 003='cd "${OneDrive}"/FAC/S4/002/ && ls -a'
     alias 006='cd "${OneDrive}"/FAC/S4/006/ && ls -a'
@@ -115,13 +115,13 @@ OneDriveAlias() {
 # -[ PPTIALIAS ]------------------------------------------------------------------------------------
 # Fct permettant de créer les alias spécifique aux ordis de la ppti
 PPTIAlias() {
-    alias wiki='cd "${OneDrive}"/Wiki/ && ls -a'
-    alias 002='cd "${PPTI_HOME}"/S3/002/ && ls -a'
-    alias 005='cd "${PPTI_HOME}"/S3/005/ && ls -a'
-    alias 011='cd "${PPTI_HOME}"/S3/011/ && ls -a'
-    alias 018='cd "${PPTI_HOME}"/S3/018/ && ls -a'
-    alias 019='cd "${PPTI_HOME}"/S3/019/ && ls -a'
-    alias 020='cd "${PPTI_HOME}"/S3/020/ && ls -a'
+    alias wiki='cd "${HOME}"/Wiki/ && ls -a'
+    alias 002='cd "${HOME}"/S3/002/ && ls -a'
+    alias 005='cd "${HOME}"/S3/005/ && ls -a'
+    alias 018='cd "${HOME}"/S3/018/ && ls -a'
+    alias 019='cd "${HOME}"/S3/019/ && ls -a'
+    alias 020='cd "${HOME}"/S3/020/ && ls -a'
+    alias 021='cd "${HOME}"/S3/021/ && ls -a'
 }
 
 # -[ WSL ]------------------------------------------------------------------------------------------
@@ -134,9 +134,8 @@ WSLAlias() {
 # =[ MAIN () ]======================================================================================
 # Test des différents chemins possibles,propres aux diff. devices,pour déterminer quels alias charger
 [[ ! -z ${OneDrive} ]] && OneDriveAlias            # Si VAR-ENV:OneDrive n'est pas vide, charger ses aliases
-[[ -d ${PPTI_HOME} ]] && PPTIAlias || SSH-Alias    # Si on est sur un PC de la PPTI
-
-[[ ! -z $WSL_DISTRO_NAME ]] && WSLAlias
+[[ $HOME =~ "2767308" ]] && PPTIAlias || SSH-Alias # Si sur PC PPTI, charge alias ppti, sinon charge alias SSH
+[[ ! -z $WSL_DISTRO_NAME ]] && WSLAlias            # Si sur WSL, charge alias spécifique aux WSL...
 
 # Alias en liens avec checkio
 [[ -f ${HOME}/.local/bin/checkio ]] && alias cio="checkio" 
