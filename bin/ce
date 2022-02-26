@@ -61,7 +61,7 @@ function doPython(){
     if [[ -f ${1} ]];then
         firstLine=$(head -1 ${1})
         cioShebang="#!/home/alterGNU/.local/bin/checkio --domain=py run"
-        if is_in_arbo $CHECKIO $(pwd) && [[ -f ${HOME}/.local/bin/checkio ]] && [[ ${firstLine} =~ "${cioShebang}"* ]];then
+        if is_in_arbo $CHECKIO && [[ -f ${HOME}/.local/bin/checkio ]] && [[ ${firstLine} =~ "${cioShebang}"* ]];then
                     python3 ${1} && [[ $(./${1} --check &> /dev/null) -eq 0 ]] && echo "CONGRATULATION!!!" && checkioWeb ${1}
         else
             python3 ${1}

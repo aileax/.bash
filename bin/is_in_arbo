@@ -9,9 +9,17 @@
 # =[ VARIABLES ]====================================================================================
 nom=$(echo $0 | rev | cut -d "/" -f1 | rev)      # Récupère le nom de la commande
 dossier=$(echo $0 | rev | cut -d "/" -f2- | rev) # Récupère l'emplacement de la commande
-parent=$1
-# Affectation conditionnelle de la variable parent(arbo. dans laquelle rechercher )
-[[ $# -eq 2 ]] && enfant=$2 || enfant=$(pwd)
+arg1=$1
+# Affectation conditionnelle de la variable arg2
+if [[ $# -eq 2 ]];then
+    arg2=$2
+else
+    arg2=$(pwd)
+fi
+
+# affectation des variables chemins en remplaçant les espaces par "\ "
+parent=${arg1// /\\ }
+enfant=${arg2// /\\ }
 
 # =[ FONCTIONS ]====================================================================================
 usage(){
@@ -26,13 +34,13 @@ is_in_arbo(){
 }
 
 # -[ MAIN() ]---------------------------------------------------------------------------------------
-## i) Trop peu d'argument : affiche l'usage
-[[ $# -lt 1 ]] && usage && exit 11
-## ii) Trop d'argument : affiche l'usage
-[[ $# -gt 2 ]] && usage && exit 21
-## ii) 1 ou 2 arguments : 
-[[ ! -d ${enfant} ]] && echo "Le dossier passé en paramètre 1 n'existe pas" && exit 2
-[[ ! -d ${parent} ]] && echo "Le dossier passé en paramètre 2 n'existe pas" && exit 4
+# i) Pas d'argument
+[[ $# -eq 0 ]] && usage && echo "coucou 1" && exit 1
+# ii) Trop d'argument
+[[ $# -gt 2 ]] && usage && exit 2
+# iii) Differents cas:
+[[ ! -d ${arg2} ]] && echo "Le dossier passé en paramètre 1:'${arg1}' n'existe pas" && exit 2
+[[ ! -d ${arg1} ]] && echo "Le dossier passé en paramètre 2:'${arg2}' n'existe pas" && exit 4
 case "${enfant}" in
     "-h"|"--help") usage && exit 12 ;;
     * ) is_in_arbo && exit 0 || exit 1;;
