@@ -61,7 +61,7 @@ Ce dossier regroupant l'ensemble de mes configurations personnelles du shell bas
     - `check_git` : vérifie qu'un dossier est bien dans l'arborescence d'un dépôt git local
     - `checkioWeb`: Vérifie le code passé en arg. sur checkio puis propose l'ouverture dans navigateur s'il est ok
     - `coucou` : créé pour apprendre à déclarer des fcts...inutile...
-    - `is_in_arbo` : Vérifie si on se trouve bien dans un dossier git
+    - `is_in_arbo` : Vérifie si l'adresse du dossier passé en arg1 est bien dans l'arborescence du chemin courant ou arg2
     - `is_it_wls` : Vérifie si on se trouve sous Windows Sub-Systems for Linux
     - `nbr_agent-ssh` : Retourne le nombre d'agent ssh actif (methode:parcours `procfs`)
     - `ppticopy` : permet de copier des documents se trouvant sur la ppti vers mes appareils personnels
