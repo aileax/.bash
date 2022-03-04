@@ -2,10 +2,11 @@
 
 # =[ VARIABLES ]====================================================================================
 nom=$(echo $0 | rev | cut -d "/" -f-1 | rev)
+dossier=$(echo $0 | rev | cut -d "/" -f2- | rev) # Récupère l'emplacement de la commande
 
 # =[ FONCTIONS ]====================================================================================
 usage(){
-    echo -e "${nom} localisée dans $0"
+    echo -e "${nom} localisée dans ${dossier}"
     echo "Elle retourne juste une phrase:"
     echo "- Sans paramètre elle dit bonjour à l'utilisateur!"
     echo "- Avec paramètre elle répète le paramètre comme un perroquet :) !"

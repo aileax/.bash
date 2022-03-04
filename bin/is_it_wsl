@@ -8,7 +8,7 @@ dossier=$(echo $0 | rev | cut -d "/" -f2- | rev)    # Récupère l'emplacement d
 
 # =[ FONCTIONS ]====================================================================================
 usage(){
-    echo -e "${nom} localisée dans $0"
+    echo -e "${nom} localisée dans ${dossier}"
     echo "Fonctionnelle permettant de savoir si l'on se trouve dans un WSL ou dans un 'vrai' linux"
     echo -e "\nUsage : \`$: ${nom} [-h]\` \n"
 }

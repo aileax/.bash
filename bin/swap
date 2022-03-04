@@ -2,9 +2,13 @@
 
 # Commande permettant, si l'on se trouve sur un vrai ubuntu, de toggle le swap de ESC<->CapsLock
 
+# =[ VARIABLES ]====================================================================================
+nom=$(echo $0 | rev | cut -d "/" -f1 | rev)         # Récupère le nom de la commande
+dossier=$(echo $0 | rev | cut -d "/" -f2- | rev)    # Récupère l'emplacement de la commande
+
 # =[ FONCTIONS ]====================================================================================
 usage(){
-    echo -e "${nom} localisée dans $0"
+    echo -e "${nom} localisée dans ${dossier}"
     echo "Fonction permettant de swapper ESC et CAPSLOCK si l'on se trouve dans un vrai linux (pas WSL)"
     echo -e "\nUsage : ${nom} [-h] \n"
 }

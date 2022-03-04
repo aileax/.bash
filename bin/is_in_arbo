@@ -23,7 +23,7 @@ enfant=${arg2// /\\ }
 
 # =[ FONCTIONS ]====================================================================================
 usage(){
-    echo -e "${nom} localisée dans $0"
+    echo -e "${nom} localisée dans ${dossier}"
     echo "Fonctionnelle permettant de savoir si un chemin_enfant est dans l'arborescence d'un
     chemin_parent"
     echo -e "\nUsage : \`$: ${nom} [-h] <chemin_parent> [<chemin_enfant>:default=pwd]\`\n"
