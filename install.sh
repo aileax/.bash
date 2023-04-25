@@ -72,12 +72,12 @@ archivage() {
 # Crée l'ensemble des liens symboliques pointant vers les bash_dotfiles (depend of git branch)
 symbolinks() {
     if grep -qEi "(Microsoft)|WSL" /proc/version &> /dev/null; then
-        ln -sv "${Folder}/bash_profile" ~/."bash_profile"
+        ln -sfv "${Folder}/bash_profile" ~/."bash_profile"
     else
-        ln -sv "${Folder}/bash_profile" ~/."profile"
+        ln -sfv "${Folder}/bash_profile" ~/."profile"
     fi
-    ln -sv "${Folder}/bash_logout" ~/."bash_logout"
-    ln -sv "${Folder}/bashrc" ~/."bashrc"
+    ln -sfv "${Folder}/bash_logout" ~/."bash_logout"
+    ln -sfv "${Folder}/bashrc" ~/."bashrc"
     return 0
 }
 
