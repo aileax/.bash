@@ -6,6 +6,19 @@
 # the default umask is set in /etc/profile; for setting the umask for ssh logins, install and
 # configure the libpam-umask package.
 #umask 022
+
+# =[ VAR-ENV=OS ]=======================================================================================================
+[[ "$(uname -s)" = "Darwin" ]] && export OS="mac" || ( [[ $(grep -qEi "(Microsoft)|WSL" /proc/version) ]] && export OS="linux" || export OS="windows" )
+
+# =[ AUTOCOMPLETION GIT SOUS MACOS ]====================================================================================
+# Sous mac, s'assure de l'autocompletion de la commande git
+if [[ $OS == "mac" ]];then
+    if [ ! -f ~/.git-completion.bash ]; then
+        curl https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash -o ~/.git-completion.bash
+    fi
+    . ~/.git-completion.bash
+fi
+
 # =[ VARIABLES ]========================================================================================================
 Surfath='/mnt/c/Users/Laurent/OneDrive'
 DeskpathWSL='/mnt/d/OneDrive'
@@ -18,7 +31,7 @@ Linux="${HOME}/OneDrive"
 [[ -d ${Linux} ]] && export OneDrive=${Linux}             # Si on est sous une distro-Linux
 
 # =[ VAR-ENV ]==========================================================================================================
-export BASH_DIR="${HOME}/.config/bash"                   # Chemin par défaut du dossier contenant les BDF.
+export BASH_DIR="${HOME}/.config/bash"            # Chemin par défaut du dossier contenant les BDF.
 export HISTFILE="${BASH_DIR}/history"             # Déplace le fichier d'historique de bash dans le BASH_DIR
 export CHECKIO="${OneDrive}/LABO/PYTHON/checkio"  # Affecte a CHECKIO l'emplacement de son dossier sur cette machine
 
@@ -35,4 +48,5 @@ export CHECKIO="${OneDrive}/LABO/PYTHON/checkio"  # Affecte a CHECKIO l'emplacem
 [[ -d $HOME/.local/bin ]] && export PATH="$HOME/.local/bin:$PATH"
 [[ -d $HOME/usr/bin ]] && export PATH="$HOME/usr/bin:$PATH"
 [[ -d $HOME/bin ]] && export PATH="$HOME/bin:$PATH"
+
 
