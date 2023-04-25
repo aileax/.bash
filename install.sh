@@ -9,7 +9,11 @@
     # 3) Crée pour les dotfiles se devant d'être localisés dans le $HOME des liens symboliques
 
 # TODO
+# [X] Compatibilité macOs
 # [ ] FIX Fill_Full_PATH (l31) car erreur lors de l'utilisation sous sheel=ZSH! voir $(cd $(PWD))
+
+# =[ CHECK_OS ]=====================================================================================
+[[ "$(uname -s)" = "Darwin" ]] && OS="mac" || ( [[ $(grep -qEi "(Microsoft)|WSL" /proc/version) ]] && OS="linux" || OS="windows" )
 
 # =[ CHECK_BASH ]===================================================================================
 # Vérifie que le SHELL par défaut est bien bash,si non, demande user s'il veut le changer!
@@ -22,22 +26,30 @@ if [[ $SHELL != *"bash" ]];then
 else
     echo -e "L'installation de la configuration personnalisée du shell bash commence...\n"
 fi
-
 # =[ VARIABLES  ]===================================================================================
 Prefix=$(date +%F)
 # Déclaration conditionnelle de la variable du dossier dans lequel chercher les BDF
-File_Full_Path=$(readlink -f $0)              #Récupère le chemin abs du script ds tous les cas!
-Folder=${File_Full_Path//\/${0##*/}/}         #Soustrait au path le nom du script = dossier parent
+if [ $OS == "mac" ];then
+    File_Full_Path=$(cd "$(dirname "$0")"; pwd -P)/$(basename "$0")
+    Folder=$(cd "$(dirname "$0")"; pwd -P)
+else
+    File_Full_Path=$(readlink -f $0)              #Récupère le chemin abs du script ds tous les cas!
+    Folder=${File_Full_Path//\/${0##*/}/}         #Soustrait au path le nom du script = dossier parent
+fi
 
 # =[ FUNCTIONS ]====================================================================================
 
 # -[ EXP_BASH_DIR ]---------------------------------------------------------------------------------
-# S'assure de la valeur de $BASH_DIR, si correspond à valeur par défaut ne fair rien sinon corrige
+# S'assure de la valeur de $BASH_DIR, si correspond à valeur par défaut ne fait rien sinon corrige
 exp_bash_dir () {
     bash_dir_profile=$(grep -E "^export BASH_DIR" ${Folder}/bash_profile | cut -d "\"" -f2)
     bash_dir_old=${bash_dir_profile}
     bash_dir_new=${Folder//$HOME/\$\{HOME\}}
-    [[ "${bash_dir_old}" == "${bash_dir_new}" ]] && echo "BASH_DIR par défaut!" || (echo "Changement de la valeur de BASH_DIR:";sed -i "s,${bash_dir_old//\$/\\\$},${bash_dir_new//\$/\\\$},g" "$Folder/bash_profile";sed -i "s,${bash_dir_old//\$/\\\$},${bash_dir_new//\$/\\\$},g" "$Folder/bashrc")
+    if [[ $OS == "mac" ]];then
+        [[ "${bash_dir_old}" == "${bash_dir_new}" ]] && echo "BASH_DIR par défaut!" || (echo "Changement de la valeur de BASH_DIR:";sed -i '' "s,${bash_dir_old//\$/\\\$},${bash_dir_new//\$/\\\$},g" "$Folder/bash_profile" && sed -i '' "s,${bash_dir_old//\$/\\\$},${bash_dir_new//\$/\\\$},g" "$Folder/bashrc")
+    else
+        [[ "${bash_dir_old}" == "${bash_dir_new}" ]] && echo "BASH_DIR par défaut!" || (echo "Changement de la valeur de BASH_DIR:";sed -i "s,${bash_dir_old//\$/\\\$},${bash_dir_new//\$/\\\$},g" "$Folder/bash_profile";sed -i "s,${bash_dir_old//\$/\\\$},${bash_dir_new//\$/\\\$},g" "$Folder/bashrc")
+    fi
     return 0
 }
 
