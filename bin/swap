@@ -26,6 +26,13 @@ is_it_wsl(){
 if [[ $# == 0 ]]; then
     if is_it_wsl;then
         echo "On ne peut pas utiliser cette commande avec WSL...sry"
+    elif [[ "${OS}" = "mac" ]];then
+        table="$(hidutil property --get 'UserKeyMapping')"
+        if [[ "${table}" = "(null)" || ${#table} -lt 4 ]];then
+            hidutil property --set '{"UserKeyMapping": [{"HIDKeyboardModifierMappingSrc":0x700000029, "HIDKeyboardModifierMappingDst":0x700000039}, {"HIDKeyboardModifierMappingSrc":0x700000039, "HIDKeyboardModifierMappingDst":0x700000029}]}' &> /dev/null
+        else
+            hidutil property --set '{"UserKeyMapping": []}' &> /dev/null
+        fi
     else
         if [[ -f /usr/bin/xmodmap ]];then
             if [[ -f ${BASH_DIR}/speedswapper ]];then
